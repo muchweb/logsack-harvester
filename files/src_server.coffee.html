@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/server.coffee - Log.io</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+        
+	    <img alt="Log.io" src="../assets/css/logo.png" style="max-height: 65%;" title="Log.io">
+        
+            Log.io
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.3.3</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/LogHarvester", "classes/LogNode", "classes/LogServer", "classes/LogStream", "classes/WebServer"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+    <h3>APIs</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" placeholder="Type to filter APIs">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="classes">
+                <ul id="api-classes" class="nav nav-list">
+                    
+                        <li><a href="../classes/LogHarvester.html">LogHarvester</a></li>
+                    
+                        <li><a href="../classes/LogNode.html">LogNode</a></li>
+                    
+                        <li><a href="../classes/LogServer.html">LogServer</a></li>
+                    
+                        <li><a href="../classes/LogStream.html">LogStream</a></li>
+                    
+                        <li><a href="../classes/WebServer.html">WebServer</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+    <h1>src/server.coffee <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+fs = require &#x27;fs&#x27;
+net = require &#x27;net&#x27;
+http = require &#x27;http&#x27;
+https = require &#x27;https&#x27;
+io = require &#x27;socket.io&#x27;
+events = require &#x27;events&#x27;
+winston = require &#x27;winston&#x27;
+express = require &#x27;express&#x27;
+
+
+class _LogObject
+  _type: &#x27;object&#x27;
+  _pclass: -&gt;
+  _pcollection: -&gt;
+  constructor: (@logServer, @name, _pairs=[]) -&gt;
+    @logServer.emit &quot;add_#{@_type}&quot;, @
+    @pairs = {}
+    @pclass = @_pclass()
+    @pcollection = @_pcollection()
+    @addPair pname for pname in _pairs
+
+  addPair: (pname) -&gt;
+    if not pair = @pairs[pname]
+      if not pair = @pcollection[pname]
+        pair = @pcollection[pname] = new @pclass @logServer, pname
+      pair.pairs[@name] = @
+      @pairs[pname] = pair
+      @logServer.emit &quot;add_#{@_type}_pair&quot;, @, pname
+
+  remove: -&gt;
+    @logServer.emit &quot;remove_#{@_type}&quot;, @
+    delete p.pairs[@name] for name, p of @pairs
+
+  toDict: -&gt;
+    name: @name
+    pairs: (name for name, obj of @pairs)
+
+###*
+# Represents single log node
+# 
+# @class LogNode
+# @extends _LogObject
+###
+class LogNode extends _LogObject
+  _type: &#x27;node&#x27;
+  _pclass: -&gt; LogStream
+  _pcollection: -&gt; @logServer.logStreams
+
+###*
+# Represents single log stream
+# 
+# @class LogStream
+# @extends _LogObject
+###
+class LogStream extends _LogObject
+  _type: &#x27;stream&#x27;
+  _pclass: -&gt; LogNode
+  _pcollection: -&gt; @logServer.logNodes
+
+###*
+# &#x60;LogServer&#x60; listens for TCP connections. It parses &amp; validates inbound TCP messages, and emits events.
+#
+# Relays inbound log messages to web clients
+# 
+# &#x60;LogServer&#x60; receives log messages via TCP:
+#
+#     &quot;+log|my_stream|my_server_host|info|this is a log message\r\n&quot;
+# 
+# Announce a node, optionally with stream associations
+#
+#     &quot;+node|my_server_host\r\n&quot;
+#     &quot;+node|my_server_host|my_stream1,my_stream2,my_stream3\r\n&quot;
+# 
+# Announce a stream, optionally with node associations
+#
+#     &quot;+stream|my_stream1\r\n&quot;
+#     &quot;+stream|my_stream1|my_server_host1,my_host_server2\r\n&quot;
+# 
+# Remove a node or stream
+#
+#     &quot;-node|my_server_host1\r\n&quot;
+#     &quot;-stream|stream2\r\n&quot;
+# 
+# WebServer listens for events emitted by &#x60;LogServer&#x60; and forwards them to web clients via socket.io
+# 
+# Usage:
+#
+#     logServer = new LogServer port: 28777
+#     webServer = new WebServer logServer, port: 28778
+#     webServer.run()
+#
+# @class LogServer
+# @extends events.EventEmitter
+###
+class LogServer extends events.EventEmitter
+  
+  ###*
+  # Initializing new &#x60;LogServer&#x60; instance
+  # @constructor
+  # @param {Object} [config={}] server properties
+  ###
+  constructor: (config={}) -&gt;
+    {@host, @port} = config
+    @_log = config.logging ? winston
+    @_delimiter = config.delimiter ? &#x27;\r\n&#x27;
+    @logNodes = {}
+    @logStreams = {}
+
+  ###*
+  # Run the server. Creates TCP listener socket and handle client disconnection
+  # @method run
+  ###
+  run: -&gt;
+    @listener = net.createServer (socket) =&gt;
+      socket._buffer = &#x27;&#x27;
+      
+      socket.on &#x27;data&#x27;, (data) =&gt;
+        @_receive data, socket
+      
+      socket.on &#x27;error&#x27;, (e) =&gt;
+        @_log.error &quot;Client #{socket.node.name} has lost TCP connection.&quot;
+        @_removeNode socket.node.name if socket.node
+      
+      socket.on &#x27;close&#x27;, (e) =&gt;
+        @_log.info &quot;Client #{socket.node.name} has disconnected.&quot;
+        @_removeNode socket.node.name if socket.node
+    
+    @listener.listen @port, @host
+
+  ###*
+  # Receiving raw data from socket
+  # @method _receive
+  # @param {Object} data raw data that was received from a socket
+  # @param {Object} socket source socket
+  ###
+  _receive: (data, socket) =&gt;
+    part = data.toString()
+    socket._buffer += part
+    @_log.debug &quot;Received TCP message: #{part}&quot;
+    @_flush socket if socket._buffer.indexOf @_delimiter &gt;= 0
+
+  ###*
+  # Parse socket buffer to separate messages
+  # @method _flush
+  # @param {Object} socket source socket
+  ###
+  _flush: (socket) =&gt;
+    socket.pause()
+    [msgs..., socket._buffer] = socket._buffer.split @_delimiter
+    socket.resume()
+    @_handle socket, msg for msg in msgs
+
+  ###*
+  # Determining how to handle individual messages
+  # @method _handle
+  # @param {Object} socket source socket
+  # @param {String} msg unparsed message string
+  ###
+  _handle: (socket, msg) -&gt;
+    @_log.debug &quot;Handling message: #{msg}&quot;
+    [mtype, args...] = msg.split &#x27;|&#x27;
+    switch mtype
+      when &#x27;+log&#x27; then @_newLog args...
+      when &#x27;+node&#x27; then @_addNode args...
+      when &#x27;-node&#x27; then @_removeNode args...
+      when &#x27;+stream&#x27; then @_addStream args...
+      when &#x27;-stream&#x27; then @_removeStream args...
+      when &#x27;+bind&#x27; then @_bindNode socket, args...
+      else @_log.error &quot;Invalid TCP message: #{msg}&quot;
+
+  ###*
+  # Handling new log message
+  # @method _newLog
+  # @param {String} sname name of the stream that message was received from
+  # @param {String} nname name of the node that message was received from
+  # @param {String} logLevel level of log
+  # @param {Object} [message=[]] parsed message string
+  ###
+  _newLog: (sname, nname, logLevel, message...) -&gt;
+    message = message.join &#x27;|&#x27;
+    @_log.debug &quot;Log message: (#{sname}, #{nname}, #{logLevel}) #{message}&quot;
+    node = @logNodes[nname] or @_addNode nname, sname
+    stream = @logStreams[sname] or @_addStream sname, nname
+    @emit &#x27;new_log&#x27;, stream, node, logLevel, message
+
+  ###*
+  # Handling add node message
+  # @method _addNode
+  # @param {String} nname name of node to add
+  # @param {String} [snames=&#x27;&#x27;]
+  ###
+  _addNode: (nname, snames=&#x27;&#x27;) -&gt;
+    @__add nname, snames, @logNodes, LogNode, &#x27;node&#x27;
+
+  ###*
+  # Handling remove node message
+  # @method _removeNode
+  # @param {String} nname name of node to remove
+  ###
+  _removeNode: (nname) -&gt;
+    @__remove nname, @logNodes, &#x27;node&#x27;
+  
+  ###*
+  # Handling add stream message
+  # @method _addStream
+  # @param {String} sname name of stream to add
+  # @param {String} [nnames=&#x27;&#x27;]
+  ###
+  _addStream: (sname, nnames=&#x27;&#x27;) -&gt;
+    @__add sname, nnames, @logStreams, LogStream, &#x27;stream&#x27;
+
+  ###*
+  # Handling remove stream message
+  # @method _removeStream
+  # @param {String} sname name of stream to remove
+  ###
+  _removeStream: (sname) -&gt;
+    @__remove sname, @logStreams, &#x27;stream&#x27;
+
+  ###*
+  # Adding node or a stream
+  # @method __add
+  # @param {String} name name of node or stream that will be added
+  # @param {String} pnames
+  # @param {Object} _collection hash to add new object to. Could be &#x60;logNodes&#x60; or &#x60;logStreams&#x60;
+  # @param {Object} _objClass class of object to create. Could be &#x60;logNode&#x60; or &#x60;logStream&#x60;.
+  # @param {String} objType type of object as a string. Only used to console output.
+  ###
+  __add: (name, pnames, _collection, _objClass, objType) -&gt;
+    @_log.info &quot;Adding #{objType}: #{name} (#{pnames})&quot;
+    pnames = pnames.split &#x27;,&#x27;
+    obj = _collection[name] = _collection[name] or new _objClass @, name, pnames
+    obj.addPair p for p in pnames when not obj.pairs[p]
+
+  ###*
+  # Removing node or a stream
+  # @method __add
+  # @param {String} name name of node or stream that will be removed
+  # @param {Object} _collection hash to remove new object from. Could be &#x60;logNodes&#x60; or &#x60;logStreams&#x60;
+  # @param {String} objType type of object as a string. Only used to console output.
+  ###
+  __remove: (name, _collection, objType) -&gt;
+    if obj = _collection[name]
+      @_log.info &quot;Removing #{objType}: #{name}&quot;
+      obj.remove()
+      delete _collection[name]
+
+  ###*
+  # Binding node to TCP socket
+  # @method _bindNode
+  # @param {Object} socket socket to bind node to
+  # @param {Object} obj (not used)
+  # @param {String} nname name of node. Only used to console output.
+  ###
+  _bindNode: (socket, obj, nname) -&gt;
+    if node = @logNodes[nname]
+      @_log.info &quot;Binding node &#x27;#{nname}&#x27; to TCP socket&quot;
+      socket.node = node
+
+###*
+# WebServer relays LogServe&#x60;r&#x60; events to web clients via socket.io.
+# @class WebServer
+###
+class WebServer
+  constructor: (@logServer, config) -&gt;
+    {@host, @port, @auth} = config
+    {@logNodes, @logStreams} = @logServer
+    @restrictSocket = config.restrictSocket ? &#x27;*:*&#x27;
+    @_log = config.logging ? winston
+    # Create express server
+    app = @_buildServer config
+    @http = @_createServer config, app
+
+  _buildServer: (config) -&gt;
+    app = express()
+    if @auth?
+      app.use express.basicAuth @auth.user, @auth.pass
+    if config.restrictHTTP
+      ips = new RegExp config.restrictHTTP.join &#x27;|&#x27;
+      app.all &#x27;/&#x27;, (req, res, next) =&gt;
+        if not req.ip.match ips
+          return res.send 403, &quot;Your IP (#{req.ip}) is not allowed.&quot;
+        next()
+    staticPath = config.staticPath ? __dirname + &#x27;/../&#x27;
+    app.use express.static staticPath
+
+  _createServer: (config, app) -&gt;
+    if config.ssl
+      return https.createServer {
+        key: fs.readFileSync config.ssl.key
+        cert: fs.readFileSync config.ssl.cert
+      }, app
+    else
+      return http.createServer app
+
+  run: -&gt;
+    @_log.info &#x27;Starting Log.io Web Server...&#x27;
+    @logServer.run()
+    io = io.listen @http.listen @port, @host
+    io.set &#x27;log level&#x27;, 1
+    io.set &#x27;origins&#x27;, @restrictSocket
+    @listener = io.sockets
+
+    _on = (args...) =&gt; @logServer.on args...
+    _emit = (_event, msg) =&gt;
+      @_log.debug &quot;Relaying: #{_event}&quot;
+      @listener.emit _event, msg
+
+    # Bind events from &#x60;LogServer&#x60; to web client
+    _on &#x27;add_node&#x27;, (node) -&gt;
+      _emit &#x27;add_node&#x27;, node.toDict()
+    _on &#x27;add_stream&#x27;, (stream) -&gt;
+      _emit &#x27;add_stream&#x27;, stream.toDict()
+    _on &#x27;add_stream_pair&#x27;, (stream, nname) -&gt;
+      _emit &#x27;add_pair&#x27;, {stream: stream.name, node: nname}
+    _on &#x27;add_node_pair&#x27;, (node, sname) -&gt;
+      _emit &#x27;add_pair&#x27;, {stream: sname, node: node.name}
+    _on &#x27;remove_node&#x27;, (node) -&gt;
+      _emit &#x27;remove_node&#x27;, node.toDict()
+    _on &#x27;remove_stream&#x27;, (stream) -&gt;
+      _emit &#x27;remove_stream&#x27;, stream.toDict()
+
+    # Bind new log event from &#x60;LogServer&#x60; to web client
+    _on &#x27;new_log&#x27;, (stream, node, level, message) =&gt;
+      _emit &#x27;ping&#x27;, {stream: stream.name, node: node.name}
+      # Only send message to web clients watching logStream
+      @listener.in(&quot;#{stream.name}:#{node.name}&quot;).emit &#x27;new_log&#x27;,
+        stream: stream.name
+        node: node.name
+        level: level
+        message: message
+
+    # Bind web client connection, events to web server
+    @listener.on &#x27;connection&#x27;, (wclient) =&gt;
+      wclient.emit &#x27;add_node&#x27;, node.toDict() for n, node of @logNodes
+      wclient.emit &#x27;add_stream&#x27;, stream.toDict() for s, stream of @logStreams
+      for n, node of @logNodes
+        for s, stream of node.pairs
+          wclient.emit &#x27;add_pair&#x27;, {stream: s, node: n}
+      wclient.emit &#x27;initialized&#x27;
+      wclient.on &#x27;watch&#x27;, (pid) -&gt;
+        wclient.join pid
+      wclient.on &#x27;unwatch&#x27;, (pid) -&gt;
+        wclient.leave pid
+    @_log.info &#x27;Server started, listening...&#x27;
+
+exports.LogServer = LogServer
+exports.WebServer = WebServer
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
