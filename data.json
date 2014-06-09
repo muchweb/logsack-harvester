@@ -20,6 +20,7 @@
             "modules": {},
             "classes": {
                 "LogStream": 1,
+                "_LogObject": 1,
                 "LogNode": 1,
                 "LogServer": 1,
                 "WebServer": 1
@@ -39,7 +40,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/server.coffee",
-            "line": 49,
+            "line": 80,
             "description": "Represents single log stream",
             "extends": "events.EventEmitter"
         },
@@ -55,6 +56,18 @@
             "line": 95,
             "description": "`LogHarvester` creates `LogStream` for each file watched and opens a persistent TCP connection to the server.\n\nWatches local files and sends new log message to server via TCP.\n\nOn startup it announces itself as Node with Stream associations.\n\nLog messages are sent to the server via string-delimited TCP messages.\n\nSample configuration:\n\n    config =\n      nodeName: 'my_server01'\n      logStreams:\n        web_server: [\n          '/var/log/nginx/access.log',\n          '/var/log/nginx/error.log'\n        ],\n        customLogs: [\n          \"/var/log/myCustomLogs/\"\n        ],\n      server:\n        host: '0.0.0.0',\n        port: 28777\n\nConfiguration above sends the following TCP messages to the server:\n\n    \"+node|my_server01|web_server\\r\\n\"\n    \"+bind|node|my_server01\\r\\n\"\n    \"+log|web_server|my_server01|info|this is log messages\\r\\n\"\n\nUsage:\n\n    harvester = new LogHarvester config\n    harvester.run()"
         },
+        "_LogObject": {
+            "name": "_LogObject",
+            "shortname": "_LogObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/server.coffee",
+            "line": 10,
+            "description": "Base class for `LogNode` and `LogStream`"
+        },
         "LogNode": {
             "name": "LogNode",
             "shortname": "LogNode",
@@ -64,7 +77,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/server.coffee",
-            "line": 38,
+            "line": 68,
             "description": "Represents single log node",
             "extends": "_LogObject"
         },
@@ -77,7 +90,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/server.coffee",
-            "line": 60,
+            "line": 92,
             "description": "`LogServer` listens for TCP connections. It parses & validates inbound TCP messages, and emits events.\n\nRelays inbound log messages to web clients\n\n`LogServer` receives log messages via TCP:\n\n    \"+log|my_stream|my_server_host|info|this is a log message\\r\\n\"\n\nAnnounce a node, optionally with stream associations\n\n    \"+node|my_server_host\\r\\n\"\n    \"+node|my_server_host|my_stream1,my_stream2,my_stream3\\r\\n\"\n\nAnnounce a stream, optionally with node associations\n\n    \"+stream|my_stream1\\r\\n\"\n    \"+stream|my_stream1|my_server_host1,my_host_server2\\r\\n\"\n\nRemove a node or stream\n\n    \"-node|my_server_host1\\r\\n\"\n    \"-stream|stream2\\r\\n\"\n\nWebServer listens for events emitted by `LogServer` and forwards them to web clients via socket.io\n\nUsage:\n\n    logServer = new LogServer port: 28777\n    webServer = new WebServer logServer, port: 28778\n    webServer.run()",
             "extends": "events.EventEmitter"
         },
@@ -90,7 +103,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/server.coffee",
-            "line": 260,
+            "line": 292,
             "description": "WebServer relays LogServe`r` events to web clients via socket.io."
         }
     },
@@ -252,7 +265,69 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 97,
+            "line": 20,
+            "description": "Initializing new `_LogObject` instance",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "logServer",
+                    "description": "Instance of `LogServer`",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "Entity (`LogStream` or `LogNode`) name",
+                    "type": "String"
+                },
+                {
+                    "name": "_pairs",
+                    "description": "Array of `LogNode` ans `LogStream` pairs",
+                    "type": "Object"
+                }
+            ],
+            "class": "_LogObject"
+        },
+        {
+            "file": "src/server.coffee",
+            "line": 34,
+            "description": "A 'pair' refers to a `LogStream` to `LogNode` pair. \n\nMethod is called when you \"activate\" a (stream, node) pair by clicking on a checkbox on the left, and tells the server to send any log messages that originated from that specific (stream, node) pair.",
+            "itemtype": "method",
+            "name": "addPair",
+            "params": [
+                {
+                    "name": "pname",
+                    "description": "entity (`LogStream` or `LogNode`) name",
+                    "type": "String"
+                }
+            ],
+            "class": "_LogObject"
+        },
+        {
+            "file": "src/server.coffee",
+            "line": 50,
+            "description": "Unregister instance from a server",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "pname",
+                    "description": "entity (`LogStream` or `LogNode`) name",
+                    "type": "String"
+                }
+            ],
+            "class": "_LogObject"
+        },
+        {
+            "file": "src/server.coffee",
+            "line": 59,
+            "description": "Adds current object to known nodes or streams",
+            "itemtype": "method",
+            "name": "toDict",
+            "class": "_LogObject"
+        },
+        {
+            "file": "src/server.coffee",
+            "line": 129,
             "description": "Initializing new `LogServer` instance",
             "is_constructor": 1,
             "params": [
@@ -268,7 +343,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 109,
+            "line": 141,
             "description": "Run the server. Creates TCP listener socket and handle client disconnection",
             "itemtype": "method",
             "name": "run",
@@ -276,7 +351,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 130,
+            "line": 162,
             "description": "Receiving raw data from socket",
             "itemtype": "method",
             "name": "_receive",
@@ -296,7 +371,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 142,
+            "line": 174,
             "description": "Parse socket buffer to separate messages",
             "itemtype": "method",
             "name": "_flush",
@@ -311,7 +386,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 153,
+            "line": 185,
             "description": "Determining how to handle individual messages",
             "itemtype": "method",
             "name": "_handle",
@@ -331,7 +406,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 171,
+            "line": 203,
             "description": "Handling new log message",
             "itemtype": "method",
             "name": "_newLog",
@@ -363,7 +438,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 186,
+            "line": 218,
             "description": "Handling add node message",
             "itemtype": "method",
             "name": "_addNode",
@@ -385,7 +460,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 195,
+            "line": 227,
             "description": "Handling remove node message",
             "itemtype": "method",
             "name": "_removeNode",
@@ -400,7 +475,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 203,
+            "line": 235,
             "description": "Handling add stream message",
             "itemtype": "method",
             "name": "_addStream",
@@ -422,7 +497,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 212,
+            "line": 244,
             "description": "Handling remove stream message",
             "itemtype": "method",
             "name": "_removeStream",
@@ -437,7 +512,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 220,
+            "line": 252,
             "description": "Adding node or a stream",
             "itemtype": "method",
             "name": "__add",
@@ -472,7 +547,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 235,
+            "line": 267,
             "description": "Removing node or a stream",
             "itemtype": "method",
             "name": "__add",
@@ -497,7 +572,7 @@
         },
         {
             "file": "src/server.coffee",
-            "line": 248,
+            "line": 280,
             "description": "Binding node to TCP socket",
             "itemtype": "method",
             "name": "_bindNode",
@@ -531,8 +606,12 @@
             "line": " src/harvester.coffee:135"
         },
         {
+            "message": "Missing item type\nInitializing new `_LogObject` instance",
+            "line": " src/server.coffee:20"
+        },
+        {
             "message": "Missing item type\nInitializing new `LogServer` instance",
-            "line": " src/server.coffee:97"
+            "line": " src/server.coffee:129"
         }
     ]
 }

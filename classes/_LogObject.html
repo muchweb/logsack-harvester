@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>LogHarvester - Log.io</title>
+    <title>_LogObject - Log.io</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
@@ -58,34 +58,10 @@
                     </div>
                     <div class="col-xs-9">
                         <div class="page-header">
-    <h1>LogHarvester <small>Class</small></h1>
+    <h1>_LogObject <small>Class</small></h1>
 </div>
 
-<p><code>LogHarvester</code> creates <code>LogStream</code> for each file watched and opens a persistent TCP connection to the server.</p>
-<p>Watches local files and sends new log message to server via TCP.</p>
-<p>On startup it announces itself as Node with Stream associations.</p>
-<p>Log messages are sent to the server via string-delimited TCP messages.</p>
-<p>Sample configuration:</p>
-<pre class="code prettyprint"><code>config =
-  nodeName: &#39;my_server01&#39;
-  logStreams:
-    web_server: [
-      &#39;/var/log/nginx/access.log&#39;,
-      &#39;/var/log/nginx/error.log&#39;
-    ],
-    customLogs: [
-      "/var/log/myCustomLogs/"
-    ],
-  server:
-    host: &#39;0.0.0.0&#39;,
-    port: 28777</code></pre>
-<p>Configuration above sends the following TCP messages to the server:</p>
-<pre class="code prettyprint"><code>"+node|my_server01|web_server\r\n"
-"+bind|node|my_server01\r\n"
-"+log|web_server|my_server01|info|this is log messages\r\n"</code></pre>
-<p>Usage:</p>
-<pre class="code prettyprint"><code>harvester = new LogHarvester config
-harvester.run()</code></pre>
+<p>Base class for <code>LogNode</code> and <code>LogStream</code></p>
 
 
 
@@ -97,7 +73,7 @@ harvester.run()</code></pre>
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_harvester.coffee.html#l95"><code>src&#x2F;harvester.coffee:95</code></a>
+            Defined in: <a href="../files/src_server.coffee.html#l10"><code>src&#x2F;server.coffee:10</code></a>
         </div>
     
 
@@ -115,118 +91,8 @@ harvester.run()</code></pre>
         <h2 class="off-left">Methods</h2>
 
         
-            <div id="method__announce" class="method item">
-    <h3 class="name"><code>_announce</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_harvester.coffee.html#l181"><code>src&#x2F;harvester.coffee:181</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Registed harvester to server</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-        
-            <div id="method__connect" class="method item">
-    <h3 class="name"><code>_connect</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_harvester.coffee.html#l156"><code>src&#x2F;harvester.coffee:156</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Creating TCP socket</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-        
-            <div id="method__send" class="method item">
-    <h3 class="name"><code>_send</code></h3>
+            <div id="method_addPair" class="method item">
+    <h3 class="name"><code>addPair</code></h3>
 
     
         <div class="args">
@@ -234,13 +100,7 @@ harvester.run()</code></pre>
             
                 <li class="arg">
                     
-                        <code>mtype</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>args</code>
+                        <code>pname</code>
                     
                 </li>
             
@@ -273,7 +133,7 @@ harvester.run()</code></pre>
             
         
         
-        <a href="../files/src_harvester.coffee.html#l191"><code>src&#x2F;harvester.coffee:191</code></a>
+        <a href="../files/src_server.coffee.html#l34"><code>src&#x2F;server.coffee:34</code></a>
         
         </p>
 
@@ -284,7 +144,8 @@ harvester.run()</code></pre>
     </div>
 
     <div class="description">
-        <p>Writing message directly to socket</p>
+        <p>A &#39;pair&#39; refers to a <code>LogStream</code> to <code>LogNode</code> pair. </p>
+<p>Method is called when you "activate" a (stream, node) pair by clicking on a checkbox on the left, and tells the server to send any log messages that originated from that specific (stream, node) pair.</p>
 
     </div>
 
@@ -296,30 +157,14 @@ harvester.run()</code></pre>
             
                 <li class="param">
                     
-                        <code class="param-name">mtype</code>
+                        <code class="param-name">pname</code>
                         <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Message type</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">args</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Array of message strings</p>
+                        <p>entity (<code>LogStream</code> or <code>LogNode</code>) name</p>
 
                     </div>
 
@@ -336,8 +181,8 @@ harvester.run()</code></pre>
 </div>
 
         
-            <div id="method__sendLog" class="method item">
-    <h3 class="name"><code>_sendLog</code></h3>
+            <div id="method_remove" class="method item">
+    <h3 class="name"><code>remove</code></h3>
 
     
         <div class="args">
@@ -345,13 +190,7 @@ harvester.run()</code></pre>
             
                 <li class="arg">
                     
-                        <code>stream</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>msg</code>
+                        <code>pname</code>
                     
                 </li>
             
@@ -384,7 +223,7 @@ harvester.run()</code></pre>
             
         
         
-        <a href="../files/src_harvester.coffee.html#l171"><code>src&#x2F;harvester.coffee:171</code></a>
+        <a href="../files/src_server.coffee.html#l50"><code>src&#x2F;server.coffee:50</code></a>
         
         </p>
 
@@ -395,7 +234,7 @@ harvester.run()</code></pre>
     </div>
 
     <div class="description">
-        <p>Creating TCP socket</p>
+        <p>Unregister instance from a server</p>
 
     </div>
 
@@ -407,30 +246,14 @@ harvester.run()</code></pre>
             
                 <li class="param">
                     
-                        <code class="param-name">stream</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Stream that message is received from</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">msg</code>
+                        <code class="param-name">pname</code>
                         <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Log message body</p>
+                        <p>entity (<code>LogStream</code> or <code>LogNode</code>) name</p>
 
                     </div>
 
@@ -447,8 +270,8 @@ harvester.run()</code></pre>
 </div>
 
         
-            <div id="method_run" class="method item">
-    <h3 class="name"><code>run</code></h3>
+            <div id="method_toDict" class="method item">
+    <h3 class="name"><code>toDict</code></h3>
 
     
         <span class="paren">()</span>
@@ -479,7 +302,7 @@ harvester.run()</code></pre>
             
         
         
-        <a href="../files/src_harvester.coffee.html#l146"><code>src&#x2F;harvester.coffee:146</code></a>
+        <a href="../files/src_server.coffee.html#l59"><code>src&#x2F;server.coffee:59</code></a>
         
         </p>
 
@@ -490,7 +313,7 @@ harvester.run()</code></pre>
     </div>
 
     <div class="description">
-        <p>Run harvester and connect to server</p>
+        <p>Adds current object to known nodes or streams</p>
 
     </div>
 

@@ -3,108 +3,68 @@
 <head>
     <meta charset="utf-8">
     <title>LogStream - Log.io</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
-    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <style type="text/css">
+        body {
+            font-family: "Open Sans",sans-serif;
+            background: #EEEEEE;
+        }
+    </style>
 </head>
 <body class="yui3-skin-sam">
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-        
-	    <img alt="Log.io" src="../assets/css/logo.png" style="max-height: 65%;" title="Log.io">
-        
-            Log.io
-        </h1>
-	<div class="nav">
-            <li class="divider-vertical"></li>
-            <li>
-                <p class="navbar-text">
-                    API Docs for Version: <b>0.3.3</b>
-                </p>
-            </li>
-        </div>
-        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/LogHarvester", "classes/LogNode", "classes/LogServer", "classes/LogStream", "classes/WebServer"]'>
-        </form>
-    </div>
-</div>
-<div class="container">
+<div class="container-fluid" style="background: url('../assets/img/back2.png');">
     <div class="row">
-        <div class="span3">
-	    <div>
-    <h3>APIs</h3>
-    <div id="sidebar">
-        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
-            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
-            <li><a href="#modules" data-toggle="tab">Modules</a></li>
-        </ul>
-
-        <div id="api-tabview-filter">
-            <input type="search" placeholder="Type to filter APIs">
-        </div>
-
-        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
-            <div class="tab-pane active" id="classes">
-                <ul id="api-classes" class="nav nav-list">
-                    
-                        <li><a href="../classes/LogHarvester.html">LogHarvester</a></li>
-                    
-                        <li><a href="../classes/LogNode.html">LogNode</a></li>
-                    
-                        <li><a href="../classes/LogServer.html">LogServer</a></li>
-                    
-                        <li><a href="../classes/LogStream.html">LogStream</a></li>
-                    
-                        <li><a href="../classes/WebServer.html">WebServer</a></li>
-                    
-                </ul>
-            </div>
-
-            <div class="tab-pane" id="modules">
-                <ul id="api-modules" class="nav nav-list">
-                    
-                </ul>
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <img alt="Log.io" src="../assets/css/logo-white.png" style="height: 50px; padding: 6px;" title="Log.io">
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p style="margin-top: 14px; color: white;">API Documentation (v0.3.3)</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3">
+                	    
 
-        </div>
-        <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
-        Show:
-        <label for="api-show-inherited" class="checkbox">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected" class="checkbox">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private" class="checkbox">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated" class="checkbox">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </form>
-
-
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
+<h3>APIs</h3>
+<ul class="nav nav-pills nav-stacked">
+    
+        <li><a href="../classes/_LogObject.html">_LogObject</a></li>
+    
+        <li><a href="../classes/LogHarvester.html">LogHarvester</a></li>
+    
+        <li><a href="../classes/LogNode.html">LogNode</a></li>
+    
+        <li><a href="../classes/LogServer.html">LogServer</a></li>
+    
+        <li><a href="../classes/LogStream.html">LogStream</a></li>
+    
+        <li><a href="../classes/WebServer.html">WebServer</a></li>
+    
+   
+</ul>
+                    </div>
+                    <div class="col-xs-9">
                         <div class="page-header">
     <h1>LogStream <small>Class</small></h1>
 </div>
+
+<p>Represents single log stream</p>
+
+
+
 
 <div class="well well-small">
     
@@ -117,8 +77,10 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_server.coffee.html#l49"><code>src&#x2F;server.coffee:49</code></a>
+            Defined in: <a href="../files/src_server.coffee.html#l80"><code>src&#x2F;server.coffee:80</code></a>
         </div>
+    
+
     
 
     
@@ -128,80 +90,12 @@
 
 
 
-<div class="well well-small">
-    <p>Represents single log stream</p>
 
-</div>
-
-
-
-<div>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
+    <div>
+        <h2 class="off-left">Methods</h2>
 
         
-            <li><a data-toggle="tab" href="#methods">Methods</a></li>
-        
-        
-        
-        
-    </ul>
-
-    <div class="tab-content">
-        <div id="index" class="tab-pane active">
-            <h2 class="off-left">Item Index</h2>
-
-            
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods extends">
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_watch" data-tablink="watch">watch</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_watch" data-tablink="watch">watch</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_watch" data-tablink="watch">watch</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_watch" data-tablink="watch">watch</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-
-            
-
-            
-        </div>
-
-        
-            <div id="methods" class="tab-pane">
-                <h2 class="off-left">Methods</h2>
-
-                
-                    <div id="method_watch" class="method item">
+            <div id="method_watch" class="method item">
     <h3 class="name"><code>watch</code></h3>
 
     
@@ -255,8 +149,8 @@
     
 </div>
 
-                
-                    <div id="method_watch" class="method item">
+        
+            <div id="method_watch" class="method item">
     <h3 class="name"><code>watch</code></h3>
 
     
@@ -344,8 +238,8 @@
     
 </div>
 
-                
-                    <div id="method_watch" class="method item">
+        
+            <div id="method_watch" class="method item">
     <h3 class="name"><code>watch</code></h3>
 
     
@@ -433,8 +327,8 @@
     
 </div>
 
-                
-                    <div id="method_watch" class="method item">
+        
+            <div id="method_watch" class="method item">
     <h3 class="name"><code>watch</code></h3>
 
     
@@ -522,17 +416,14 @@
     
 </div>
 
-                
-            </div>
-        
-
-        
-
-        
-
         
     </div>
-</div>
+
+
+
+
+
+
 
                     </div>
                 </div>
@@ -540,10 +431,5 @@
         </div>
     </div>
 </div>
-<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
-<script src="../assets/vendor/prettify/prettify-min.js"></script>
-<script src="../assets/js/yuidoc-bootstrap.js"></script>
-<script>prettyPrint();</script>
 </body>
 </html>

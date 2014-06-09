@@ -5,7 +5,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "LogNode",
         "LogServer",
         "LogStream",
-        "WebServer"
+        "WebServer",
+        "_LogObject"
     ],
     "modules": [],
     "allModules": []
