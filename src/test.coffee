@@ -18,6 +18,9 @@ HARVESTER1_CONFIG =
 	logStreams:
 		stream1: TEST_FILES[0..1]
 		stream2: TEST_FILES[2..3]
+		stream3: [
+			TEST_FILES[4]
+		]
 	server:
 		host: 'localhost'
 		port: 28771
@@ -60,8 +63,7 @@ Bugs:
  - There used to be a bug where harvester was using a lot of CPU while could not connect to server.
 ###
 
-logger.info "Creating test diretory: #{__dirname}/tmp"
-fs.mkdirSync "#{__dirname}/tmp" if not fs.existsSync "#{__dirname}/tmp"
+
 
 harvester1 = new LogHarvester HARVESTER1_CONFIG
 currently_watched_files = []
@@ -75,9 +77,10 @@ harvester1.on 'log_new', (stream, msg) ->
 	generated_logs.push msg
 harvester1.run()
 
-
 exports.testFileWatch =
 	'verifying right files are watched': (test) ->
+		logger.info "Creating test diretory: #{__dirname}/tmp"
+		fs.mkdirSync "#{__dirname}/tmp" if not fs.existsSync "#{__dirname}/tmp"
 		fs.writeFileSync fpath, '' for fpath in TEST_FILES[0..2]
 		setTimeout (->
 			test.ok (currently_watched_files.indexOf TEST_FILES[0]) >= 0
@@ -156,26 +159,47 @@ exports.testFileWatch =
 		setTimeout (->
 			test.ok currently_watched_files.length is 0
 			test.done()
+			fs.rmdirSync "#{__dirname}/tmp"
 		), 400
 
 exports.testDirectoryWatch =
-	'dir 1': (test) ->
+	'no directory': (test) ->
 		setTimeout (->
 			test.ok currently_watched_files.length == 0
 			test.done()
 		), 100
 
-	'dir 2': (test) ->
+	'created directory': (test) ->
 		fs.mkdirSync TEST_FILES[4]
 		setTimeout (->
 			test.ok currently_watched_files.length == 0
 			test.done()
-			harvester1.stop()
 		), 100
 
-	# 'dir 3': (test) ->
-	# 	fs.writeFileSync "#{TEST_FILES[4]}/test.log", ''
+	'added a file to new directory': (test) ->
+		fs.writeFileSync (TEST_FILES[4] + '/test.log'), 'a'
+		setTimeout (->
+			test.ok currently_watched_files.length == 1
+			test.done()
+			harvester1.stop()
+			fs.unlinkSync "#{TEST_FILES[4]}/test.log"
+			fs.rmdirSync TEST_FILES[4]
+		), 2000
+
+	# 'moved watched directory away': (test) ->
+	# 	fs.renameSync TEST_FILES[4], "#{TEST_FILES[4]}_moved"
+	# 	setTimeout (->
+	# 		test.ok currently_watched_files.length == 0
+	# 		test.done()
+	# 		harvester1.stop()
+	# 	), 2000
+
+	# 'moved watched directory back': (test) ->
+	# 	fs.renameSync "#{TEST_FILES[4]}_moved", TEST_FILES[4]
 	# 	setTimeout (->
 	# 		test.ok currently_watched_files.length == 1
 	# 		test.done()
+	# 		fs.unlinkSync "#{TEST_FILES[4]}/test.log"
+	# 		fs.rmdirSync TEST_FILES[4]
+	# 		harvester1.stop()
 	# 	), 2000
