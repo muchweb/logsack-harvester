@@ -24,6 +24,8 @@
     "express": "^4.4.4",
     "jquery": "^2.1.1",
     "jquery-browserify": "~1.8.1",
+    "random-color": "0.0.0",
+    "randomcolor": "^0.1.1",
     "socket.io": "~0.9.13",
     "socket.io-client": "~0.9.11",
     "underscore": "^1.6.0",

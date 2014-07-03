@@ -7,6 +7,7 @@ backbone.$ = $
 io = require 'socket.io-client'
 _ = require 'underscore'
 templates = require './templates.coffee'
+randomcolor = require 'randomcolor'
 
 # Cap LogMessages collection size
 MESSAGE_CAP = 5000
@@ -40,7 +41,7 @@ class _LogObject extends backbone.Model
     super args...
     @screens = new LogScreens
     @pairs = @_pclass()
-    @color = colors.next()
+    @color = randomcolor.randomcolor()
 
 ###*
 # @class _LogObjects
