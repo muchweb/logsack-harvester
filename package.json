@@ -1,6 +1,6 @@
 {
-  "name": "faggot",
-  "description": "Log stream processor",
+  "name": "faggot.io",
+  "description": "Stream Log Collector",
   "version": "0.0.1",
   "main": "faggot.js",
   "keywords": [
@@ -10,14 +10,14 @@
   ],
   "author": "muchweb",
   "bugs": {
-    "url": "https://github.com/muchweb/faggot/issues"
+    "url": "https://github.com/muchweb/faggot.io/issues"
   },
   "bin": {
-    "faggot": "cli.js"
+    "faggot.io": "cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/muchweb/faggot.git"
+    "url": "https://github.com/muchweb/faggot.io.git"
   },
   "license": "GPL-2.0",
   "dependencies": {

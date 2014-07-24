@@ -1,6 +1,6 @@
 # faggot
 
-Log stream processor
+Stream Log Collector
 
 ## Usage:
 
