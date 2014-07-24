@@ -1,0 +1,20 @@
+{
+  "name": "faggot",
+  "description": "Log stream processor",
+  "version": "0.0.1",
+  "main": "faggot.js",
+  "keywords": [
+    "log",
+    "logs",
+    "stream"
+  ],
+  "author": "muchweb",
+  "bugs": {
+    "url": "https://github.com/muchweb/faggot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muchweb/faggot.git"
+  },
+  "license": "GPL-2.0"
+}
