@@ -12,9 +12,15 @@
   "bugs": {
     "url": "https://github.com/muchweb/faggot/issues"
   },
+  "bin": {
+    "faggot": "cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/muchweb/faggot.git"
   },
-  "license": "GPL-2.0"
+  "license": "GPL-2.0",
+  "dependencies": {
+    "commander": "^2.3.0"
+  }
 }

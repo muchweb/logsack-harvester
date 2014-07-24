@@ -14,11 +14,17 @@
 			options = {};
 
 		this.current_data = '';
+		
+		// Used for debugging
+		this.counter = 0;
 	};
 
 	util.inherits(module.exports.Faggot, stream.Duplex);
 
 	module.exports.Faggot.prototype._write = function (chunk) {
+		
+		console.log('_write');
+		
 		var string = chunk.toString('utf8');
 
 		this.current_data += string;
@@ -34,7 +40,8 @@
 	module.exports.Faggot.prototype._read = function () {};
 
 	module.exports.Faggot.prototype.processLine = function (line) {
-		console.log('Line', line);
+		// Outputting to stdout
+		this.push(this.counter + line + '\n');
 	}
 
 }());
