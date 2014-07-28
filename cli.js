@@ -15,8 +15,13 @@
 		.version(package_json.version)
 		.parse(process.argv);
 
+
+	process.stdin.setEncoding('utf8');
+
 	process.stdin
 		.pipe(new Faggot())
 		.pipe(process.stdout);
+
+
 
 }());
