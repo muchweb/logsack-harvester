@@ -1,12 +1,14 @@
 /*global module: true */
 /*global require: true */
+/*global process: true */
 
 (function () {
 	'use strict';
 
 	var stream = require('stream'),
 		util = require('util'),
-		net = require('net');
+		net = require('net'),
+		fs = require('fs');
 
 	module.exports.Faggot = function (options) {
 		stream.Duplex.call(this, options);
@@ -19,10 +21,25 @@
 		// Used for debugging
 		this.counter = 0;
 
+		this.outputs = [];
+
 		this.StartServer();
 	};
 
 	util.inherits(module.exports.Faggot, stream.Duplex);
+
+	module.exports.Faggot.prototype.AddOutputFile = function (filename) {
+		this.AddOutputStream(fs.createWriteStream(filename));
+	};
+
+	module.exports.Faggot.prototype.AddInputStream = function (stream) {
+		stream.pipe(this);
+	};
+
+	module.exports.Faggot.prototype.AddOutputStream = function (stream) {
+		this.outputs.push(stream);
+		this.pipe(stream);
+	};
 
 	module.exports.Faggot.prototype.StartServer = function () {
 

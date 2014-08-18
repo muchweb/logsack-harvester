@@ -7,3 +7,11 @@ Stream Log Collector
 ```bash
   ls | faggot
 ```
+
+Possible inputs:
+- stdin (default)
+- File
+
+Possible put:
+- strout (default)
+- File

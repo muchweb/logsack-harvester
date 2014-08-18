@@ -1,27 +1,26 @@
 #!/usr/bin/env node
 
 /*global require: true */
-/*global process: true */
 
 (function () {
 	'use strict';
 
 	var program = require('commander'),
 		Faggot = require('./faggot.js').Faggot,
-		package_json = require('./package.json');
+		package_json = require('./package.json'),
+		faggot;
 
 	program
 		.usage('')
 		.version(package_json.version)
 		.parse(process.argv);
 
-
 	process.stdin.setEncoding('utf8');
 
-	process.stdin
-		.pipe(new Faggot())
-		.pipe(process.stdout);
-
-
+	faggot = new Faggot();
+	faggot.AddOutputStream(process.stdout);
+	faggot.AddOutputFile('faggot_out0.txt');
+	faggot.AddOutputFile('faggot_out1.txt');
+	faggot.AddInputStream(process.stdin);
 
 }());
