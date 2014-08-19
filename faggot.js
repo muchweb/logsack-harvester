@@ -88,6 +88,8 @@
 
 		}.bind(this)).listen(3000);
 		console.log('Collector at 3000');
+
+		// this.server.close();
 	}
 
 	module.exports.Faggot.prototype._write = function (chunk, a, b) {
@@ -108,8 +110,7 @@
 	};
 
 	module.exports.Faggot.prototype.end = function () {
-		console.log('Server closed');
-		this.server.close();
+		console.log('Input ended');
 	};
 
 	// module.exports.Faggot.prototype.onend = function () {
