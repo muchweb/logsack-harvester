@@ -22,8 +22,6 @@
 		this.counter = 0;
 
 		this.outputs = [];
-
-		this.StartServer();
 	};
 
 	util.inherits(module.exports.Faggot, stream.Duplex);
@@ -40,6 +38,32 @@
 		this.outputs.push(stream);
 		this.pipe(stream);
 	};
+
+	module.exports.Faggot.prototype.AddInputServer = function (port) {
+		net.createServer(function (socket) {
+
+			// Identify this client
+			socket.name = socket.remoteAddress + ":" + socket.remotePort
+
+			socket.pipe(this);
+
+			// Send a nice welcome message and announce
+			// console.log('Lumberjack has connected: ' + socket.name + '\n');
+
+			// Handle incoming messages from clients.
+			// socket.on('data', function (data) {
+			// 	this.processLine(socket.name + ' > ' + data, socket);
+			// }.bind(this));
+
+			// Remove the client from the list when it leaves
+			socket.on('end', function () {
+				console.log('Lumberjack has left: ' + socket.name + '\n');
+			});
+
+		}.bind(this)).listen(port);
+		console.log('Collector listening at port ' + port);
+	};
+
 
 	module.exports.Faggot.prototype.StartServer = function () {
 

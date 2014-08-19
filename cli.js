@@ -22,5 +22,6 @@
 	faggot.AddOutputFile('faggot_out0.txt');
 	faggot.AddOutputFile('faggot_out1.txt');
 	faggot.AddInputStream(process.stdin);
+	faggot.AddInputServer(3000);
 
 }());
