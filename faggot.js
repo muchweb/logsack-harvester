@@ -90,7 +90,20 @@
 		console.log('Collector at 3000');
 
 		// this.server.close();
-	}
+	};
+
+	module.exports.Faggot.prototype.StartClient = function (connection) {
+		var client = new net.Socket(),
+			connection_parts = connection.split(':');
+
+		client.connect(connection_parts[1], connection_parts[0], function() {
+
+		    console.log('CONNECTED TO: ' + HOST + ':' + PORT);
+
+		  	this.pipe(client);
+
+		}.bind(this));
+	};
 
 	module.exports.Faggot.prototype._write = function (chunk, a, b) {
 		var string = chunk.toString('utf8');
