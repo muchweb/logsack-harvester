@@ -45,20 +45,21 @@
 			// Identify this client
 			socket.name = socket.remoteAddress + ":" + socket.remotePort
 
-			socket.pipe(this);
-
 			// Send a nice welcome message and announce
-			// console.log('Lumberjack has connected: ' + socket.name + '\n');
-
-			// Handle incoming messages from clients.
-			// socket.on('data', function (data) {
-			// 	this.processLine(socket.name + ' > ' + data, socket);
-			// }.bind(this));
+			console.log('Lumberjack has connected: ' + socket.name);
 
 			// Remove the client from the list when it leaves
 			socket.on('end', function () {
-				console.log('Lumberjack has left: ' + socket.name + '\n');
+				console.log('Lumberjack has left: ' + socket.name);
 			});
+
+			// Remove the client from the list when it leaves
+			socket.on('end', function () {
+				console.log('Lumberjack error: ' + socket.name);
+			});
+
+			// Handle incoming messages from clients.
+			socket.pipe(this);
 
 		}.bind(this)).listen(port);
 		console.log('Collector listening at port ' + port);
@@ -74,7 +75,7 @@
 			socket.name = socket.remoteAddress + ":" + socket.remotePort
 
 			// Send a nice welcome message and announce
-			console.log('Lumberjack has connected: ' + socket.name + '\n');
+			console.log('Lumberjack has connected: ' + socket.name);
 
 			// Handle incoming messages from clients.
 			socket.on('data', function (data) {
@@ -83,7 +84,7 @@
 
 			// Remove the client from the list when it leaves
 			socket.on('end', function () {
-				console.log('Lumberjack has left: ' + socket.name + '\n');
+				console.log('Lumberjack has left: ' + socket.name);
 			});
 
 		}.bind(this)).listen(3000);
@@ -92,16 +93,14 @@
 		// this.server.close();
 	};
 
-	module.exports.Faggot.prototype.StartClient = function (connection) {
+	module.exports.Faggot.prototype.AddOutputServer = function (connection) {
 		var client = new net.Socket(),
 			connection_parts = connection.split(':');
 
 		client.connect(connection_parts[1], connection_parts[0], function() {
-
-		    console.log('CONNECTED TO: ' + HOST + ':' + PORT);
+		    console.log('Connected to: ' + connection);
 
 		  	this.pipe(client);
-
 		}.bind(this));
 	};
 
@@ -139,7 +138,7 @@
 	module.exports.Faggot.prototype.processLine = function (line) {
 
 		// Outputting to stdout
-		this.push('#' + this.counter + ':\t' + line + '\n');
+		this.push('#' + this.counter + ':\t' + line);
 		this.counter++;
 	}
 

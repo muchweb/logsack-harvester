@@ -17,6 +17,7 @@
 		.option('--in-port [port]', 'Use input server on given port')
 		.option('--out-file [filename]', 'Add output file')
 		.option('--out-stream', 'Use stdout as output')
+		.option('--out-port [address:port]', 'Use output server on given port')
 		.version(package_json.version)
 		.parse(process.argv);
 
@@ -29,6 +30,9 @@
 
 	if (typeof program.outFile !== 'undefined')
 		faggot.AddOutputFile(program.outFile);
+
+	if (typeof program.outPort !== 'undefined')
+		faggot.AddOutputServer(program.outPort);
 
 	if (typeof program.inStream !== 'undefined') {
 		process.stdin.setEncoding('utf8');
