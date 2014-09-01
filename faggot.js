@@ -10,6 +10,11 @@
 		net = require('net'),
 		fs = require('fs');
 
+	/**!
+	 Main faggot class
+	 @class Faggot
+	 @param {[Object={}]} options object
+	**/
 	module.exports.Faggot = function (options) {
 		stream.Duplex.call(this, options);
 
@@ -26,20 +31,43 @@
 
 	util.inherits(module.exports.Faggot, stream.Duplex);
 
+	/**!
+	 Add output to plain file
+	 @method AddOutputFile
+	 @param {filename} filename Target output file name
+	**/
 	module.exports.Faggot.prototype.AddOutputFile = function (filename) {
 		this.AddOutputStream(fs.createWriteStream(filename));
 	};
 
+	/**!
+	 Add input from stream
+	 @method AddInputStream
+	 @param {Object} stream Output stream object
+	**/
 	module.exports.Faggot.prototype.AddInputStream = function (stream) {
 		stream.pipe(this);
 	};
 
+	/**!
+	 Add output to stream
+	 @method AddOutputStream
+	 @param {Object} stream Input stream object
+	**/
 	module.exports.Faggot.prototype.AddOutputStream = function (stream) {
 		this.outputs.push(stream);
 		this.pipe(stream);
 	};
 
+	/**!
+	 Add input from port, start listening TCP server
+	 @method AddInputServer
+	 @param {[Number=3000]} port Port to listen to
+	**/
 	module.exports.Faggot.prototype.AddInputServer = function (port) {
+		if (typeof port === 'undefined')
+			port = 3000;
+
 		net.createServer(function (socket) {
 
 			// Identify this client
@@ -65,42 +93,22 @@
 		console.log('Collector listening at port ' + port);
 	};
 
-
-	module.exports.Faggot.prototype.StartServer = function () {
-
-		// Start a TCP Server
-		this.server = net.createServer(function (socket) {
-
-			// Identify this client
-			socket.name = socket.remoteAddress + ":" + socket.remotePort
-
-			// Send a nice welcome message and announce
-			console.log('Lumberjack has connected: ' + socket.name);
-
-			// Handle incoming messages from clients.
-			socket.on('data', function (data) {
-				this.processLine(socket.name + ' > ' + data, socket);
-			}.bind(this));
-
-			// Remove the client from the list when it leaves
-			socket.on('end', function () {
-				console.log('Lumberjack has left: ' + socket.name);
-			});
-
-		}.bind(this)).listen(3000);
-		console.log('Collector at 3000');
-
-		// this.server.close();
-	};
-
+	/**!
+		Add output server (port). Logs will be sent to target host port
+		@method AddOutputServer
+		@param {[String='localhost:3000']} port Target host in 'host:port' format
+	**/
 	module.exports.Faggot.prototype.AddOutputServer = function (connection) {
+		if (typeof connection === 'undefined')
+			connection = 'localhost:3000';
+
 		var client = new net.Socket(),
 			connection_parts = connection.split(':');
 
 		client.connect(connection_parts[1], connection_parts[0], function() {
-		    console.log('Connected to: ' + connection);
+		 console.log('Connected to: ' + connection);
 
-		  	this.pipe(client);
+		 	this.pipe(client);
 		}.bind(this));
 	};
 
@@ -134,6 +142,7 @@
 	// module.exports.Faggot.prototype.end = function () {
 	// 	this.push(null);
 	// };
+
 
 	module.exports.Faggot.prototype.processLine = function (line) {
 
