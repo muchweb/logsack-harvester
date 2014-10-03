@@ -1,7 +1,7 @@
 {
   "name": "faggot.io",
   "description": "Stream Log Collector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/faggot.js",
   "scripts": {
     "prepublish": "./node_modules/.bin/coffee --compile --output lib src"
