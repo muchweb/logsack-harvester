@@ -6,7 +6,7 @@
 	'use strict';
 
 	var program = require('commander'),
-		Faggot = require('./faggot.js').Faggot,
+		Faggot = require('./lib/faggot.js').Faggot,
 		package_json = require('./package.json'),
 		faggot;
 
