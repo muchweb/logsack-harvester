@@ -11,15 +11,13 @@ Main faggot class
 @param {[Object={}]} options object
 ###
 module.exports.Faggot = class extends stream.Duplex
-	constructor: (options) ->
+	constructor: (options = {}) ->
 		stream.Duplex.call this, options
-		options = {}	if typeof options is "undefined"
-		@current_data = ""
+		@current_data = ''
 
 		# Used for debugging
 		@counter = 0
 		@outputs = []
-		return
 
 	###*
 	!
@@ -29,7 +27,6 @@ module.exports.Faggot = class extends stream.Duplex
 	###
 	AddOutputFile: (filename) ->
 		@AddOutputStream fs.createWriteStream(filename)
-		return
 
 	###*
 	!
@@ -39,8 +36,6 @@ module.exports.Faggot = class extends stream.Duplex
 	###
 	AddInputStream: (stream) ->
 		stream.pipe this
-		return
-
 
 	###*
 	!
@@ -51,8 +46,6 @@ module.exports.Faggot = class extends stream.Duplex
 	AddOutputStream: (stream) ->
 		@outputs.push stream
 		@pipe stream
-		return
-
 
 	###*
 	!
@@ -60,35 +53,28 @@ module.exports.Faggot = class extends stream.Duplex
 	@method AddInputServer
 	@param {[Number=3000]} port Port to listen to
 	###
-	AddInputServer: (port) ->
-		port = 3000	if typeof port is "undefined"
-
+	AddInputServer: (port = 3000) ->
 		# Identify this client
-
 		# Send a nice welcome message and announce
-
 		# Remove the client from the list when it leaves
-
 		# Remove the client from the list when it leaves
 
 		# Handle incoming messages from clients.
 		net.createServer(((socket) ->
-			socket.name = socket.remoteAddress + ":" + socket.remotePort
-			console.log "Lumberjack has connected: " + socket.name
-			socket.on "end", ->
-				console.log "Lumberjack has left: " + socket.name
+			socket.name = socket.remoteAddress + ':' + socket.remotePort
+			console.log 'Lumberjack has connected: ' + socket.name
+			socket.on 'end', ->
+				console.log 'Lumberjack has left: ' + socket.name
 				return
 
-			socket.on "end", ->
-				console.log "Lumberjack error: " + socket.name
+			socket.on 'end', ->
+				console.log 'Lumberjack error: ' + socket.name
 				return
 
 			socket.pipe this
 			return
 		).bind(this)).listen port
-		console.log "Collector listening at port " + port
-		return
-
+		console.log 'Collector listening at port ' + port
 
 	###*
 	!
@@ -97,29 +83,25 @@ module.exports.Faggot = class extends stream.Duplex
 	@param {[String='localhost:3000']} port Target host in 'host:port' format
 	###
 	AddOutputServer: (connection) ->
-		connection = "localhost:3000"	if typeof connection is "undefined"
+		connection = 'localhost:3000' if typeof connection is 'undefined'
 		client = new net.Socket()
-		connection_parts = connection.split(":")
-		client.connect connection_parts[1], connection_parts[0], (->
-			console.log "Connected to: " + connection
+		connection_parts = connection.split(':')
+		client.connect connection_parts[1], connection_parts[0], =>
+			console.log 'Connected to: ' + connection
 			@pipe client
-			return
-		).bind(this)
-		return
 
 	_write: (chunk, a, b) ->
-		string = chunk.toString("utf8")
+		string = chunk.toString('utf8')
 		@current_data += string
-		lines = @current_data.split("\n")
-		@processLine lines.shift()	while lines.length > 1
+		lines = @current_data.split('\n')
+		@processLine lines.shift() while lines.length > 1
 		@current_data = lines[0]
-		return
 
 	_read: ->
+		# Left blank intentionally
 
 	end: ->
-		console.log "Input ended"
-		return
+		console.log 'Input ended'
 
 
 	# module.exports.Faggot.prototype.onend = function () {
@@ -134,6 +116,6 @@ module.exports.Faggot = class extends stream.Duplex
 	processLine: (line) ->
 
 		# Outputting to stdout
-		@push "#" + @counter + ":\t" + line
+		@push '#' + @counter + ':\t' + line
 		@counter++
-		return
+
