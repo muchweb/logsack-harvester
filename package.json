@@ -2,7 +2,10 @@
   "name": "faggot.io",
   "description": "Stream Log Collector",
   "version": "0.0.1",
-  "main": "faggot.js",
+  "main": "lib/faggot.js",
+  "scripts": {
+    "prepublish": "./node_modules/.bin/coffee --compile --output lib src"
+  },
   "keywords": [
     "log",
     "logs",
@@ -22,5 +25,8 @@
   "license": "GPL-2.0",
   "dependencies": {
     "commander": "^2.3.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0"
   }
 }
