@@ -11,6 +11,7 @@
     "node.js",
     "ajax"
   ],
+  "license": "GPL-3.0+",
   "author": "muchweb <aleks@s-ko.net>",
   "contributors": [
     {
