@@ -1,4 +1,4 @@
-faggot-io - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/muchweb/faggot-io.svg?branch=master)](https://travis-ci.org/muchweb/faggot-io) [![Dependency Status](https://gemnasium.com/muchweb/faggot-io.svg)](https://gemnasium.com/muchweb/faggot-io)
+faggot-io - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/faggot-io/faggot-io.svg?branch=master)](https://travis-ci.org/faggot-io/faggot-io)
 =================================================
 
 Powered by [node.js](http://nodejs.org) + [socket.io](http://socket.io)
