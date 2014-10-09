@@ -1,8 +1,8 @@
 {
-  "name": "log.io",
+  "name": "faggot-io",
   "description": "Realtime log monitoring in your browser",
-  "version": "0.3.4",
-  "homepage": "http://logio.org",
+  "version": "0.4.0",
+  "homepage": "https://github.com/faggot-io/faggot-io",
   "keywords": [
     "logs",
     "monitoring",
@@ -11,14 +11,15 @@
     "node.js",
     "ajax"
   ],
-  "author": "Mike Smathers <msmathers@narrativescience.com>",
+  "author": "muchweb <aleks@s-ko.net>",
   "contributors": [
     {
       "name": "Mike Smathers",
       "email": "msmathers@narrativescience.com"
     },
     {
-      "name": "muchweb"
+      "name": "muchweb",
+      "email": "aleks@s-ko.net"
     }
   ],
   "dependencies": {
@@ -42,13 +43,11 @@
     "nodeunit": "^0.9.0",
     "sinon": "~1.5.2",
     "sinon-chai": "~2.2.0",
-    "yuidoc-bootstrap-theme": "^1.0.2",
-    "yuidoc-theme-blue": "^0.1.8",
     "yuidocjs": "^0.3.50"
   },
   "bin": {
-    "log.io-server": "./bin/log.io-server.js",
-    "log.io-harvester": "./bin/log.io-harvester.js"
+    "faggot-io-server": "./bin/faggot-io-server.js",
+    "faggot-io-harvester": "./bin/faggot-io-harvester.js"
   },
   "scripts": {
     "prepublish": "cake build",

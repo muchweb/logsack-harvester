@@ -12,7 +12,7 @@ TEMPLATE_SRC = "#{__dirname}/templates"
 TEMPLATE_OUTPUT = "#{__dirname}/src/templates.coffee"
 
 # Main build task
-task 'build', 'Builds Log.io package', ->
+task 'build', 'Builds faggot-io package', ->
   invoke 'templates'
   invoke 'compile'
   invoke 'styles'
@@ -43,25 +43,25 @@ task 'compile', 'Compiles CoffeeScript src/*.coffee to lib/*.js', ->
 
 # Compiling LESS
 task 'styles', 'Compiles less templates to CSS', ->
-  console.log "Compiling #{__dirname}/src/less/* to #{__dirname}/lib/log.io.css"
-  exec "#{LESS} --compress #{__dirname}/src/less/log.io.less #{__dirname}/lib/log.io.css", (err, stdout, stderr) ->
+  console.log "Compiling #{__dirname}/src/less/* to #{__dirname}/lib/faggot-io.css"
+  exec "#{LESS} --compress #{__dirname}/src/less/faggot-io.less #{__dirname}/lib/faggot-io.css", (err, stdout, stderr) ->
     throw err if err
     console.log stdout + stderr if stdout + stderr
 
 # Porting client to browser
 task 'browserify', 'Compiles client.coffee to browser-friendly JS', ->
-  console.log "Browserifying #{__dirname}/lib/client.js to #{__dirname}/lib/log.io.js"
-  exec "#{BROWSERIFY} -c 'coffee -sc' #{__dirname}/src/client.coffee > #{__dirname}/lib/log.io.js", (err, stdout, stderr) ->
+  console.log "Browserifying #{__dirname}/lib/client.js to #{__dirname}/lib/faggot-io.js"
+  exec "#{BROWSERIFY} -c 'coffee -sc' #{__dirname}/src/client.coffee > #{__dirname}/lib/faggot-io.js", (err, stdout, stderr) ->
     console.log stdout + stderr if err
 
 # Creating config files if do not exists
-task 'ensure:configuration', 'Ensures that config files exist in ~/.log.io/', ->
-  console.log 'Creating ~/.log.io/ for configuration files.'
-  console.log 'If this fails, run npm using a specific user: npm install -g log.io --user \'ubuntu\''
+task 'ensure:configuration', 'Ensures that config files exist in ~/.faggot-io/', ->
+  console.log 'Creating ~/.faggot-io/ for configuration files.'
+  console.log 'If this fails, run npm using a specific user: npm install -g faggot-io --user \'ubuntu\''
   homedir = process.env[if process.platform is 'win32' then 'USERPROFILE' else 'HOME']
   console.log "Detected home directory: #{homedir}"
-  ldir = homedir + '/.log.io/'
-  console.log "Creating log.io config directory: #{ldir}"
+  ldir = homedir + '/.faggot-io/'
+  console.log "Creating faggot-io config directory: #{ldir}"
   fs.mkdirSync ldir if not fs.existsSync ldir
   for c in ['harvester', 'log_server', 'web_server']
     path = ldir + "#{c}.conf"

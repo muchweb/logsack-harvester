@@ -1,4 +1,4 @@
-Log.io - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/muchweb/Log.io.svg?branch=master)](https://travis-ci.org/muchweb/Log.io) [![Dependency Status](https://gemnasium.com/muchweb/Log.io.svg)](https://gemnasium.com/muchweb/Log.io)
+faggot-io - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/muchweb/faggot-io.svg?branch=master)](https://travis-ci.org/muchweb/faggot-io) [![Dependency Status](https://gemnasium.com/muchweb/faggot-io.svg)](https://gemnasium.com/muchweb/faggot-io)
 =================================================
 
 Powered by [node.js](http://nodejs.org) + [socket.io](http://socket.io)
@@ -14,7 +14,7 @@ Users browse streams and nodes in the web UI, and activate (stream, node) pairs 
 ## Install Server & Harvester
 
 ### Docker
-Check our [Docker Log.io server image](https://registry.hub.docker.com/u/muchweb/log.io-arch/).
+Check our [Docker faggot-io server image](https://registry.hub.docker.com/u/muchweb/faggot-io-arch/).
 
 ### NPM
 
@@ -38,25 +38,25 @@ Check our [Docker Log.io server image](https://registry.hub.docker.com/u/muchweb
 1. Install via NPM
 
     ```bash
-    npm install -g log.io --user "ubuntu"
+    npm install -g faggot-io --user "ubuntu"
     ```
 
 2. Run server
 
     ```bash
-    log.io-server
+    faggot-io-server
     ```
 
 3. Configure harvester
 
     ```bash
-    nano ~/.log.io/harvester.conf
+    nano ~/.faggot-io/harvester.conf
     ```
 
 4. Run harvester
 
     ```bash
-    log.io-harvester
+    faggot-io-harvester
     ```
 
 5. Browse to [http://localhost:28778](http://localhost:28778) to see live logs
@@ -106,6 +106,8 @@ Global NPM dependencies: `nodeunit`
     npm test
 
 ## Credits
+
+Based on [NarrativeScience/Log.io](https://github.com/NarrativeScience/Log.io).
 
 - Mike Smatherzs &lt;msmathers@narrativescience.com&gt; ([msmathers](http://github.com/msmathers))
 - Narrative Science http://narrativescience.com ([NarrativeScience](http://github.com/NarrativeScience))

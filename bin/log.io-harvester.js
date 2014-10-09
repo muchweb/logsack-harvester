@@ -13,7 +13,7 @@
 			],
 		}),
 		home_dir = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'],
-		conf = require(home_dir + '/.log.io/harvester.conf').config,
+		conf = require(home_dir + '/.faggot-io/harvester.conf').config,
 		Harvester = require('../index.js'),
 		harvester;
 

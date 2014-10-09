@@ -13,8 +13,8 @@
 			],
 		}),
 		home_dir = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'],
-		webConf = require(home_dir + '/.log.io/web_server.conf').config,
-		logConf = require(home_dir + '/.log.io/log_server.conf').config,
+		webConf = require(home_dir + '/.faggot-io/web_server.conf').config,
+		logConf = require(home_dir + '/.faggot-io/log_server.conf').config,
 		server = require('../index.js'),
 		logServer,
 		webServer;

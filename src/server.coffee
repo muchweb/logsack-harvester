@@ -374,7 +374,7 @@ class WebServer
     # @method run
     ###
     run: ->
-        @_log.info 'Starting Log.io Web Server...'
+        @_log.info 'Starting faggot-io Web Server...'
         @logServer.run()
         io = io.listen @http.listen @port, @host
         io.set 'log level', 1

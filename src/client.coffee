@@ -160,7 +160,7 @@ class LogScreens extends backbone.Collection
   model: LogScreen
 
 ###*
-# Log.io Web Client
+# faggot-io Web Client
 #
 # WebClient listens for log messages and stream/node announcements from the server via socket.io.#
 # It manipulates state in LogNodes & LogStreams collections, which triggers view events.
