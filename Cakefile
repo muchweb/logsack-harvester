@@ -1,22 +1,12 @@
 {spawn, exec} = require 'child_process'
 fs = require 'fs'
 
-ENV = '/usr/bin/env'
-COFFEE = "#{ENV} coffee"
-MOCHA = "#{ENV} mocha"
-LESS = "#{ENV} lessc"
-BROWSERIFY = "#{ENV} browserify"
-YUIDOC = "#{ENV} yuidoc"
-
 TEMPLATE_SRC = "#{__dirname}/templates"
 TEMPLATE_OUTPUT = "#{__dirname}/src/templates.coffee"
 
 # Main build task
 task 'build', 'Builds faggot-io package', ->
   invoke 'templates'
-  invoke 'compile'
-  invoke 'styles'
-  invoke 'browserify'
 
 # Building templates
 decorateTemplateForExports = (f) ->
@@ -33,26 +23,6 @@ task 'templates', 'Compiles templates/*.html to src/templates.coffee', ->
   content = '# TEMPLATES.COFFEE IS AUTO-GENERATED. CHANGES WILL BE LOST!\n'
   content += templateBlocks.join '\n\n'
   fs.writeFileSync TEMPLATE_OUTPUT, content, 'utf-8'
-
-# Building javascripts
-task 'compile', 'Compiles CoffeeScript src/*.coffee to lib/*.js', ->
-  console.log "Compiling #{__dirname}/src/*.coffee to #{__dirname}/lib/*.js"
-  exec "#{COFFEE} --compile --output #{__dirname}/lib/ #{__dirname}/src/", (err, stdout, stderr) ->
-    throw err if err
-    console.log stderr + stdout if stdout + stderr
-
-# Compiling LESS
-task 'styles', 'Compiles less templates to CSS', ->
-  console.log "Compiling #{__dirname}/src/less/* to #{__dirname}/lib/faggot-io.css"
-  exec "#{LESS} --compress #{__dirname}/src/less/faggot-io.less #{__dirname}/lib/faggot-io.css", (err, stdout, stderr) ->
-    throw err if err
-    console.log stdout + stderr if stdout + stderr
-
-# Porting client to browser
-task 'browserify', 'Compiles client.coffee to browser-friendly JS', ->
-  console.log "Browserifying #{__dirname}/lib/client.js to #{__dirname}/lib/faggot-io.js"
-  exec "#{BROWSERIFY} -c 'coffee -sc' #{__dirname}/src/client.coffee > #{__dirname}/lib/faggot-io.js", (err, stdout, stderr) ->
-    console.log stdout + stderr if err
 
 # Creating config files if do not exists
 task 'ensure:configuration', 'Ensures that config files exist in ~/.faggot-io/', ->
