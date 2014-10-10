@@ -107,19 +107,7 @@ Global NPM dependencies: `nodeunit`
 
 ## Credits
 
-Based on [NarrativeScience/Log.io](https://github.com/NarrativeScience/Log.io).
-
-- Mike Smatherzs &lt;msmathers@narrativescience.com&gt; ([msmathers](http://github.com/msmathers))
-- Narrative Science http://narrativescience.com ([NarrativeScience](http://github.com/NarrativeScience))
-- muchweb ([muchweb](http://github.com/muchweb))
-
-## Acknowledgements
-
-- Jeremy Ashkenas ([jashkenas](https://github.com/jashkenas))
-- Guillermo Rauch &lt;guillermo@learnboost.com&gt; ([Guille](http://github.com/guille))
-- Ryan Dahl &lt;ry at tiny clouds dot org&gt; ([ry](https://github.com/ry)) + Joyent http://www.joyent.com/ ([joyent](https://github.com/joyent/))
-- [turtlebender](http://github.com/turtlebender)
-- [jdrake](http://github.com/jdrake)
+Based on [NarrativeScience/Log.io](https://github.com/NarrativeScience/Log.io). For list of contributors, please see [AUTHORS](AUTHORS).
 
 ## :free: License
 
