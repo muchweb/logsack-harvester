@@ -1,6 +1,8 @@
 faggot-io - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/faggot-io/faggot-io.svg?branch=master)](https://travis-ci.org/faggot-io/faggot-io)
 =================================================
 
+**:warning: Work in progress :warning:**
+
 Powered by [node.js](http://nodejs.org) + [socket.io](http://socket.io)
 
 ## How does it work?
