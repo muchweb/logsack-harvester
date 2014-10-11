@@ -1,4 +1,4 @@
-# muchweb development branch (unreleased)
+# 0.4.0
 
 - New and extended test system
 - Added Travis CI file and builds badge
@@ -20,6 +20,11 @@
 - Pull: Directory watch support
 - Pull: Added CSS rule to retain whitespace in log messages
 - Pull: Updated 'clear' button text
+- Rename to "faggot-io"
+- Using NPM in favour of Cake
+- Proper NPM publishing for easier installation
+- Added AUHORS file
+- License to GNU GPL v3
 
 # 0.3.4 / 2014-07-30
 

@@ -1,4 +1,6 @@
-lib/
-node_modules/
+lib
+less
+node_modules
 src/templates.coffee
-docs/
+docs
+npm-debug.log

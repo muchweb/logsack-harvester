@@ -1,3 +1,4 @@
-src/
-node_modules/
-docs/
+src
+less
+node_modules
+docs
