@@ -20,11 +20,13 @@ task 'templates', 'Compiles templates/*.html to src/templates.coffee', ->
   console.log 'Generating src/templates.coffee from templates/*.html'
   files = fs.readdirSync TEMPLATE_SRC
   templateBlocks = (decorateTemplateForExports f for f in files)
-  content = '# TEMPLATES.COFFEE IS AUTO-GENERATED. CHANGES WILL BE LOST!\n'
+  content = '# This file is auto-generated. Any changes made here will be lost!\n'
+  content += '# Please modify files in `templates` directory instead.\n'
+  content += '\n'
   content += templateBlocks.join '\n\n'
   fs.writeFileSync TEMPLATE_OUTPUT, content, 'utf-8'
 
-# Creating config files if do not exists
+# Creating config files if do not epacPxists
 task 'ensure:configuration', 'Ensures that config files exist in ~/.faggot-io/', ->
   console.log 'Creating ~/.faggot-io/ for configuration files.'
   console.log 'If this fails, run npm using a specific user: npm install -g faggot-io --user \'ubuntu\''
