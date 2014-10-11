@@ -1,7 +1,7 @@
 {
     "name": "faggot-io",
     "url": "https://github.com/faggot-io/faggot-io",
-    "version": "0.3.3",
+    "version": "0.4.0",
     "options": {
         "paths": "./src/",
         "outdir": "./docs/",
