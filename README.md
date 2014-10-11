@@ -1,7 +1,25 @@
 faggot-io - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/faggot-io/faggot-io.svg?branch=master)](https://travis-ci.org/faggot-io/faggot-io)
 =================================================
 
-**:warning: Work in progress :warning:**
+## **:warning: Work in progress :warning:**
+
+- [x] Name
+- [x] Logo
+- [x] License
+- [ ] To separate server and harvester
+ - [ ] Current repo becomes harvester
+ - [ ] Create a repo for server
+- [ ] Harvester
+ - [ ] Must be published correctly to NPM
+ - [ ] Should work as programmatic API
+ - [ ] Should work as binary
+ - [ ] Should work as frontend?
+ - [ ] Correct tests
+- [ ] 'Server'
+ - [ ] Must be published correctly to NPM
+ - [ ] Should work as binary
+ - [ ] To create Docker image
+ - [ ] Correct tests
 
 Powered by [node.js](http://nodejs.org) + [socket.io](http://socket.io)
 
@@ -15,15 +33,9 @@ Users browse streams and nodes in the web UI, and activate (stream, node) pairs 
 
 ## Install Server & Harvester
 
-### Docker
-Check our [Docker faggot-io server image](https://registry.hub.docker.com/u/muchweb/faggot-io-arch/).
-
 ### NPM
 
-> Please note that you will require `coffee-script` installed
-> ```
-> npm install -g coffee-script
-> ```
+`coffee-script` is a local dependancy
 
 ---
 
