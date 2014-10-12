@@ -8,67 +8,62 @@
   "author": "muchweb <aleks@s-ko.net>",
   "contributors": [
     {
-          "name": "Andrej Pregl",
-          "email": "andrej.pregl@viewserve.com"
+      "name": "Andrej Pregl",
+      "email": "andrej.pregl@viewserve.com"
     },
     {
-          "name": "Bertrand Paquet",
-          "email": "bertrand.paquet@gmail.com"
+      "name": "Bertrand Paquet",
+      "email": "bertrand.paquet@gmail.com"
     },
     {
-          "name": "David Straub",
-          "email": "Scinvention@gmail.com"
+      "name": "David Straub",
+      "email": "Scinvention@gmail.com"
     },
     {
-          "name": "Ertugrul Emre Ertekin",
-          "email": "ee@ertek.in"
+      "name": "Ertugrul Emre Ertekin",
+      "email": "ee@ertek.in"
     },
     {
-          "name": "fanweixiao",
-          "email": "fanweixiao@gmail.com"
+      "name": "fanweixiao",
+      "email": "fanweixiao@gmail.com"
     },
     {
-          "name": "Fzerorubigd",
-          "email": "fzerorubigd@gmail.com"
+      "name": "Fzerorubigd",
+      "email": "fzerorubigd@gmail.com"
     },
     {
-          "name": "James Shiell",
-          "email": "james@infernus.org"
+      "name": "James Shiell",
+      "email": "james@infernus.org"
     },
     {
-          "name": "Jonas Liljestrand",
-          "email": "jonas.liljestrand@gmail.com"
+      "name": "Jonas Liljestrand",
+      "email": "jonas.liljestrand@gmail.com"
     },
     {
-          "name": "Mike Smathers",
-          "email": "msmathers@narrativescience.com"
+      "name": "Mike Smathers",
+      "email": "msmathers@narrativescience.com"
     },
     {
-          "name": "Roman Roan",
-          "email": "roman.roan@gmail.com"
+      "name": "Roman Roan",
+      "email": "roman.roan@gmail.com"
     },
     {
-          "name": "Vikas Putcha",
-          "email": "pvssvikas@gmail.com"
+      "name": "Vikas Putcha",
+      "email": "pvssvikas@gmail.com"
     }
   ],
-  "dependencies": {
-    "coffee-script": "~1.4.0"
-  },
   "devDependencies": {
     "browserify": "~1.16.6",
-    "coffee-script": "^1.4.0",
+    "coffee-script": "^1.8.0",
     "nodeunit": "^0.9.0",
     "yuidocjs": "^0.3.50"
   },
   "scripts": {
     "docs": "./node_modules/.bin/yuidoc .",
-
     "compile": "./node_modules/.bin/coffee --compile --output lib src",
     "browserify": "./node_modules/.bin/browserify lib/client.js -o lib/client-browser.js --debug",
-    "less": "./node_modules/.bin/lessc --compress src/less/faggot-io.less lib/faggot-io.css",
-
     "pretest": "npm run compile",
-    "test": "./node_modules/.bin/nodeunit lib/test.js"
+    "prepublish": "npm run compile",
+    "test": "./node_modules/.bin/nodeunit lib"
   }
 }
