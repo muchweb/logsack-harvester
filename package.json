@@ -1,54 +1,65 @@
 {
-  "name": "faggot-io",
-  "description": "Realtime log monitoring in your browser",
+  "name": "faggot-io-core",
+  "description": "Main log class and data format",
   "version": "0.4.0",
-  "homepage": "https://github.com/faggot-io/faggot-io",
-  "keywords": [
-    "logs",
-    "monitoring",
-    "realtime",
-    "socket.io",
-    "node.js",
-    "ajax"
-  ],
+  "repository": "https://github.com/faggot-io/faggot-io-core",
   "license": "GPL-3.0+",
+  "main": "lib/main.js",
   "author": "muchweb <aleks@s-ko.net>",
   "contributors": [
     {
-      "name": "Mike Smathers",
-      "email": "msmathers@narrativescience.com"
+          "name": "Andrej Pregl",
+          "email": "andrej.pregl@viewserve.com"
     },
     {
-      "name": "muchweb",
-      "email": "aleks@s-ko.net"
+          "name": "Bertrand Paquet",
+          "email": "bertrand.paquet@gmail.com"
+    },
+    {
+          "name": "David Straub",
+          "email": "Scinvention@gmail.com"
+    },
+    {
+          "name": "Ertugrul Emre Ertekin",
+          "email": "ee@ertek.in"
+    },
+    {
+          "name": "fanweixiao",
+          "email": "fanweixiao@gmail.com"
+    },
+    {
+          "name": "Fzerorubigd",
+          "email": "fzerorubigd@gmail.com"
+    },
+    {
+          "name": "James Shiell",
+          "email": "james@infernus.org"
+    },
+    {
+          "name": "Jonas Liljestrand",
+          "email": "jonas.liljestrand@gmail.com"
+    },
+    {
+          "name": "Mike Smathers",
+          "email": "msmathers@narrativescience.com"
+    },
+    {
+          "name": "Roman Roan",
+          "email": "roman.roan@gmail.com"
+    },
+    {
+          "name": "Vikas Putcha",
+          "email": "pvssvikas@gmail.com"
     }
   ],
   "dependencies": {
-    "backbone": "^1.1.2",
-    "coffee-script": "~1.4.0",
-    "express": "^4.4.4",
-    "jquery": "~1.8.1",
-    "jquery-browserify": "~1.8.1",
-    "socket.io": "~0.9.13",
-    "socket.io-client": "~0.9.11",
-    "underscore": "^1.6.0",
-    "winston": "^0.7.3"
+    "coffee-script": "~1.4.0"
   },
   "devDependencies": {
     "browserify": "~1.16.6",
-    "chai": "~1.4.0",
     "coffee-script": "^1.4.0",
-    "less": "~1.3.3",
-    "mkdirp": "^0.5.0",
-    "mocha": "~1.7.4",
     "nodeunit": "^0.9.0",
-    "sinon": "~1.5.2",
-    "sinon-chai": "~2.2.0",
     "yuidocjs": "^0.3.50"
-  },
-  "bin": {
-    "faggot-io-server": "./bin/faggot-io-server.js",
-    "faggot-io-harvester": "./bin/faggot-io-harvester.js"
   },
   "scripts": {
     "docs": "./node_modules/.bin/yuidoc .",
@@ -56,8 +67,6 @@
     "compile": "./node_modules/.bin/coffee --compile --output lib src",
     "browserify": "./node_modules/.bin/browserify lib/client.js -o lib/client-browser.js --debug",
     "less": "./node_modules/.bin/lessc --compress src/less/faggot-io.less lib/faggot-io.css",
-    "prepublish": "npm run compile && npm run browserify && npm run less",
-    "postinstall": "cake ensure:configuration",
 
     "pretest": "npm run compile",
     "test": "./node_modules/.bin/nodeunit lib/test.js"

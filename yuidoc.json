@@ -1,6 +1,6 @@
 {
-    "name": "faggot-io",
-    "url": "https://github.com/faggot-io/faggot-io",
+    "name": "faggot-io-core",
+    "url": "https://github.com/faggot-io/faggot-io-core",
     "version": "0.4.0",
     "options": {
         "paths": "./src/",

@@ -1,6 +1,4 @@
 lib
-less
 node_modules
-src/templates.coffee
 docs
 npm-debug.log
