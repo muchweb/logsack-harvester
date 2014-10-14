@@ -11,7 +11,7 @@ exports.Log = class
 
 	@glue: '|'
 
-	host: null
+	node: null
 	name: null
 	time: null
 	status: null
@@ -21,7 +21,7 @@ exports.Log = class
 
 	constructor: (options = {}) ->
 		@time = Date.now()
-		@host = os.hostname()
+		@node = os.hostname()
 		@name = process
 			.cwd()
 			.split path.sep
@@ -47,7 +47,7 @@ exports.Log = class
 			data = []
 			data.push 'log'
 			data.push @time
-			data.push @host
+			data.push @node
 			data.push @name
 			data = data.concat @text.split exports.Log.glue if @text isnt ''
 			return data

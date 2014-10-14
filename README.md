@@ -7,7 +7,7 @@ Harvesters connect to the server via TCP, and write properly formatted strings t
 
 Send a log message
 
-    +log|host|name|status|this is log message\r\n
+    +log|host|name|time|status|this is log message\r\n
 
 Register a new node
 

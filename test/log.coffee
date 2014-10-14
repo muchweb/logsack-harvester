@@ -3,9 +3,9 @@ os = require 'os'
 path = require 'path'
 
 exports.Constructing =
-	'default host': (test) ->
+	'default node': (test) ->
 		item = new Log
-		test.strictEqual item.host, os.hostname()
+		test.strictEqual item.node, os.hostname()
 		test.done()
 
 	'default name': (test) ->
@@ -33,10 +33,10 @@ exports.Constructing =
 		test.strictEqual item.text, null
 		test.done()
 
-	'overridden host': (test) ->
+	'overridden node': (test) ->
 		item = new Log
-			host: 'testing'
-		test.strictEqual item.host, 'testing'
+			node: 'testing'
+		test.strictEqual item.node, 'testing'
 		test.done()
 
 	'overridden name': (test) ->
