@@ -81,18 +81,61 @@ exports.Constructing =
 		test.done()
 
 exports.SetText =
-	'adding text via constructor': (test) ->
+	'adding text via constructor - string': (test) ->
 		item = new Log
 			text: 'testing'
 		test.strictEqual item.text, 'testing'
 		test.strictEqual item.is_text, true
 		test.done()
 
-	'adding text via function': (test) ->
+	'adding text via function - string': (test) ->
 		item = new Log
 		item.SetText 'testing'
 		test.strictEqual item.text, 'testing'
 		test.strictEqual item.is_text, true
+		test.done()
+
+	'adding text via constructor - array': (test) ->
+		item = new Log
+			text: [
+				'testing'
+			]
+		test.strictEqual item.text, 'testing'
+		test.strictEqual item.is_text, true
+		test.done()
+
+	'adding text via function - array': (test) ->
+		item = new Log
+		item.SetText [
+			'testing'
+		]
+		test.strictEqual item.text, 'testing'
+		test.strictEqual item.is_text, true
+		test.done()
+
+exports.SetStatusFromText =
+	'same as text': (test) ->
+		item = new Log
+			text: 'testing'
+		test.strictEqual item.text, 'testing'
+		test.strictEqual item.status, 'testing'
+		test.done()
+
+	'from string': (test) ->
+		item = new Log
+			text: 'info|testing'
+		test.strictEqual item.text, 'info|testing'
+		test.strictEqual item.status, 'info'
+		test.done()
+
+	'from array': (test) ->
+		item = new Log
+			text: [
+				'info'
+				'testing'
+			]
+		test.strictEqual item.text, 'info|testing'
+		test.strictEqual item.status, 'info'
 		test.done()
 
 exports.GetData =
@@ -104,8 +147,11 @@ exports.GetData =
 	'text log': (test) ->
 		item = new Log
 			text: 'testing'
+			time: 12345678
+
 		test.deepEqual item.GetData(), [
 			'log'
+			12345678
 			os.hostname()
 			'faggot-io-core'
 			'testing'
@@ -122,6 +168,6 @@ exports.toString =
 		item = new Log
 			text: 'testing'
 			time: 12345678
-			status: 'info'
-		test.strictEqual String(item), "log|12345678|#{os.hostname()}|faggot-io-core|info|testing"
+
+		test.strictEqual String(item), "log|12345678|#{os.hostname()}|faggot-io-core|testing"
 		test.done()
