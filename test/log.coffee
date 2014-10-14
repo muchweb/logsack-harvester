@@ -8,9 +8,9 @@ exports.Constructing =
 		test.strictEqual item.node, os.hostname()
 		test.done()
 
-	'default name': (test) ->
+	'default stream': (test) ->
 		item = new Log
-		test.strictEqual item.name, 'faggot-io-core'
+		test.strictEqual item.stream, 'faggot-io-core'
 		test.done()
 
 	'default time': (test) ->
@@ -39,10 +39,10 @@ exports.Constructing =
 		test.strictEqual item.node, 'testing'
 		test.done()
 
-	'overridden name': (test) ->
+	'overridden stream': (test) ->
 		item = new Log
-			name: 'testing'
-		test.strictEqual item.name, 'testing'
+			stream: 'testing'
+		test.strictEqual item.stream, 'testing'
 		test.done()
 
 	'overridden time': (test) ->
@@ -80,6 +80,38 @@ exports.Constructing =
 		test.strictEqual typeof item.testing, 'undefined'
 		test.done()
 
+exports.SetStream =
+	'adding stream via constructor - string': (test) ->
+		item = new Log
+			stream: 'testing'
+		test.strictEqual item.stream, 'testing'
+		test.done()
+
+	'adding stream via constructor - array': (test) ->
+		item = new Log
+			stream: [
+				'testing1'
+				'testing2'
+			]
+		test.strictEqual item.stream, 'testing1,testing2'
+		test.done()
+
+	'adding stream via function - string': (test) ->
+		item = new Log
+		item.SetStream 'testing'
+		test.strictEqual item.stream, 'testing'
+		test.done()
+
+	'adding stream via function - array': (test) ->
+		item = new Log
+		item.SetStream [
+			'testing1'
+			'testing2'
+		]
+		test.strictEqual item.stream, 'testing1,testing2'
+		test.done()
+
+
 exports.SetText =
 	'adding text via constructor - string': (test) ->
 		item = new Log
@@ -98,18 +130,20 @@ exports.SetText =
 	'adding text via constructor - array': (test) ->
 		item = new Log
 			text: [
-				'testing'
+				'testing1'
+				'testing2'
 			]
-		test.strictEqual item.text, 'testing'
+		test.strictEqual item.text, 'testing1|testing2'
 		test.strictEqual item.is_text, true
 		test.done()
 
 	'adding text via function - array': (test) ->
 		item = new Log
 		item.SetText [
-			'testing'
+			'testing1'
+			'testing2'
 		]
-		test.strictEqual item.text, 'testing'
+		test.strictEqual item.text, 'testing1|testing2'
 		test.strictEqual item.is_text, true
 		test.done()
 
@@ -150,7 +184,7 @@ exports.GetData =
 			time: 12345678
 
 		test.deepEqual item.GetData(), [
-			'log'
+			'+log'
 			12345678
 			os.hostname()
 			'faggot-io-core'
@@ -169,5 +203,5 @@ exports.toString =
 			text: 'testing'
 			time: 12345678
 
-		test.strictEqual String(item), "log|12345678|#{os.hostname()}|faggot-io-core|testing"
+		test.strictEqual String(item), "+log|12345678|#{os.hostname()}|faggot-io-core|testing"
 		test.done()

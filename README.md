@@ -5,45 +5,45 @@ faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.s
 
 Harvesters connect to the server via TCP, and write properly formatted strings to the socket.  Third party harvesters can send messages to the server using the following commands:
 
-Send a log message
-
-    +log|host|name|time|status|this is log message\r\n
-
 Register a new node
 
-    +node|my_node\r\n
+    +node|node\n
 
-Register a new node, with stream associations
+Remove a node with all streams
 
-    +node|my_node|my_stream1,my_stream2\r\n
+    -node|node\r\n
 
-Remove a node
+Register stream associations
 
-    -node|my_node\r\n
+    +stream|node|stream1,stream2\r\n
 
+Remove stream associations
+
+    -stream|node|stream1,stream2\r\n
+
+Send a log message
+
+    +log|node|name|timestamp|status|this is log message\n
 
 ## Building
 
-Global NPM dependencies: `coffee-script`, `mocha`, `less` and `browserify`
+There are no global dependencies
 
     npm install
-    cake build
-
-### Building documentation
-
-Global NPM dependency: `yuidocjs`
-
-    cake docs
-
-Then navigate to `docs/index.html`
-
-Theme was based on [yuidoc-bootstrap-theme](https://www.npmjs.org/package/yuidoc-bootstrap-theme).
 
 ## Testing
 
-Global NPM dependencies: `nodeunit`
+There are no gloabal NPM dependencies.
 
     npm test
+
+### Compiling documentation
+
+There are no gloabal NPM dependencies.
+
+    npm run docs
+
+Then navigate to `docs/index.html`. Documentation theme is based on [yuidoc-bootstrap-theme](https://www.npmjs.org/package/yuidoc-bootstrap-theme).
 
 ## Credits
 
