@@ -121,5 +121,7 @@ exports.toString =
 	'text log': (test) ->
 		item = new Log
 			text: 'testing'
-		test.strictEqual String(item), "log|#{os.hostname()}|faggot-io-core|testing"
+			time: 12345678
+			status: 'info'
+		test.strictEqual String(item), "log|12345678|#{os.hostname()}|faggot-io-core|info|testing"
 		test.done()

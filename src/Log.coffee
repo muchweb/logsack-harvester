@@ -38,8 +38,10 @@ exports.Log = class
 		if @is_text
 			return [
 				'log'
+				@time
 				@host
 				@name
+				@status
 				@text
 			]
 		return []

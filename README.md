@@ -1,87 +1,13 @@
 faggot-io-core - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/faggot-io/faggot-io.svg?branch=master)](https://travis-ci.org/faggot-io/faggot-io)
 =================================================
 
-## **:warning: Work in progress :warning:**
-
-- [x] Name
-- [x] Logo
-- [x] License
-- [ ] To separate server and harvester
- - [ ] Current repo becomes harvester
- - [ ] Create a repo for server
-- [ ] Harvester
- - [ ] Must be published correctly to NPM
- - [ ] Should work as programmatic API
- - [ ] Should work as binary
- - [ ] Should work as frontend?
- - [ ] Correct tests
-- [ ] 'Server'
- - [ ] Must be published correctly to NPM
- - [ ] Should work as binary
- - [ ] To create Docker image
- - [ ] Correct tests
-
-Powered by [node.js](http://nodejs.org) + [socket.io](http://socket.io)
-
-## How does it work?
-
-*Harvesters* watch log files for changes, send new log messages to the *server* via TCP, which broadcasts to *web clients* via socket.io.
-
-Log streams are defined by mapping file paths to a stream name in harvester configuration.
-
-Users browse streams and nodes in the web UI, and activate (stream, node) pairs to view and search log messages in screen widgets.
-
-## Install Server & Harvester
-
-### NPM
-
-`coffee-script` is a local dependancy
-
----
-
-> Please also note that on GNU operation system, you will require `node-gyp` dependencies:
->
-> - `python2`
-> - `make`
-> - `gcc`
->
-> These can be installed via your package manager
-
----
-
-1. Install via NPM
-
-    ```bash
-    npm install -g faggot-io --user "ubuntu"
-    ```
-
-2. Run server
-
-    ```bash
-    faggot-io-server
-    ```
-
-3. Configure harvester
-
-    ```bash
-    nano ~/.faggot-io/harvester.conf
-    ```
-
-4. Run harvester
-
-    ```bash
-    faggot-io-harvester
-    ```
-
-5. Browse to [http://localhost:28778](http://localhost:28778) to see live logs
-
 ## Server TCP Interface
 
 Harvesters connect to the server via TCP, and write properly formatted strings to the socket.  Third party harvesters can send messages to the server using the following commands:
 
 Send a log message
 
-    +log|my_stream|my_node|info|this is log message\r\n
+    +log|host|name|status|this is log message\r\n
 
 Register a new node
 
