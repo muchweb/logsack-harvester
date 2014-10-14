@@ -6,52 +6,6 @@
   "license": "GPL-3.0+",
   "main": "lib/main.js",
   "author": "muchweb <aleks@s-ko.net>",
-  "contributors": [
-    {
-      "name": "Andrej Pregl",
-      "email": "andrej.pregl@viewserve.com"
-    },
-    {
-      "name": "Bertrand Paquet",
-      "email": "bertrand.paquet@gmail.com"
-    },
-    {
-      "name": "David Straub",
-      "email": "Scinvention@gmail.com"
-    },
-    {
-      "name": "Ertugrul Emre Ertekin",
-      "email": "ee@ertek.in"
-    },
-    {
-      "name": "fanweixiao",
-      "email": "fanweixiao@gmail.com"
-    },
-    {
-      "name": "Fzerorubigd",
-      "email": "fzerorubigd@gmail.com"
-    },
-    {
-      "name": "James Shiell",
-      "email": "james@infernus.org"
-    },
-    {
-      "name": "Jonas Liljestrand",
-      "email": "jonas.liljestrand@gmail.com"
-    },
-    {
-      "name": "Mike Smathers",
-      "email": "msmathers@narrativescience.com"
-    },
-    {
-      "name": "Roman Roan",
-      "email": "roman.roan@gmail.com"
-    },
-    {
-      "name": "Vikas Putcha",
-      "email": "pvssvikas@gmail.com"
-    }
-  ],
   "devDependencies": {
     "browserify": "~1.16.6",
     "coffee-script": "^1.8.0",
