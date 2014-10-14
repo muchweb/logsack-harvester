@@ -1,3 +1,11 @@
+# 0.4.3
+
+- Added travis NPM deployment
+- Removed package.json 'contributors' in favour of AUTHORS file
+- :fire: Removed LESS
+- :memo: Improved data format
+- :memo: Added badges
+
 # 0.4.2
 
 - Separated main Log object
