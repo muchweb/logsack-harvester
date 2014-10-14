@@ -1,4 +1,4 @@
-faggot-io-core - Real-time log monitoring in your browser [![Build Status](https://travis-ci.org/faggot-io/faggot-io.svg?branch=master)](https://travis-ci.org/faggot-io/faggot-io)
+faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.svg)](https://travis-ci.org/faggot-io/faggot-io-core) [![NPM version](https://badge.fury.io/js/faggot-io-core.svg)](http://badge.fury.io/js/faggot-io-core) ![License: GPLv3+](http://img.shields.io/badge/license-GPLv3%2B-brightgreen.svg)
 =================================================
 
 ## Server TCP Interface
