@@ -105,7 +105,7 @@ exports.GetData =
 		item = new Log
 			text: 'testing'
 		test.deepEqual item.GetData(), [
-			'log_new'
+			'log'
 			os.hostname()
 			'faggot-io-core'
 			'testing'
@@ -121,5 +121,5 @@ exports.toString =
 	'text log': (test) ->
 		item = new Log
 			text: 'testing'
-		test.strictEqual String(item), "log_new|#{os.hostname()}|faggot-io-core|testing"
+		test.strictEqual String(item), "log|#{os.hostname()}|faggot-io-core|testing"
 		test.done()

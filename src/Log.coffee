@@ -37,7 +37,7 @@ exports.Log = class
 	GetData: ->
 		if @is_text
 			return [
-				'log_new'
+				'log'
 				@host
 				@name
 				@text
