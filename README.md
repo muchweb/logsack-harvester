@@ -5,49 +5,29 @@ faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.s
 
     git install --save https://github.com/faggot-io/faggot-io-harvester.git
 
-## Server TCP Interface
+## Usage:
 
-Harvesters connect to the server via TCP, and write properly formatted strings to the socket.  Third party harvesters can send messages to the server using the following commands:
+```bash
+  ls | faggot
+```
 
-Register a new node
+Possible inputs:
+- stdin (default)
+- File
+- Port
 
-    +node|node\n
+Possible output:
+- strout (default)
+- File
+- Port
 
-Remove a node with all streams
+## Example
 
-    -node|node\r\n
+1. Run input server
+    `faggot --in-port 3000 --out-stream`
 
-Register stream associations
-
-    +stream|node|stream1,stream2\r\n
-
-Remove stream associations
-
-    -stream|node|stream1,stream2\r\n
-
-Send a log message
-
-    +log|node|name|timestamp|status|this is log message\n
-
-## Building
-
-There are no global dependencies
-
-    npm install
-
-## Testing
-
-There are no gloabal NPM dependencies.
-
-    npm test
-
-### Compiling documentation
-
-There are no gloabal NPM dependencies.
-
-    npm run docs
-
-Then navigate to `docs/index.html`. Documentation theme is based on [yuidoc-bootstrap-theme](https://www.npmjs.org/package/yuidoc-bootstrap-theme).
+2. Run output server
+    `echo "test" | faggot --in-stream --out-port localhost:3000`
 
 ## Credits
 
