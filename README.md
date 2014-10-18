@@ -1,6 +1,10 @@
 faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.svg)](https://travis-ci.org/faggot-io/faggot-io-core) [![NPM version](https://badge.fury.io/js/faggot-io-core.svg)](http://badge.fury.io/js/faggot-io-core) ![License: GPLv3+](http://img.shields.io/badge/license-GPLv3%2B-brightgreen.svg)
 =================================================
 
+## Installation
+
+    git install --save https://github.com/faggot-io/faggot-io-harvester.git
+
 ## Server TCP Interface
 
 Harvesters connect to the server via TCP, and write properly formatted strings to the socket.  Third party harvesters can send messages to the server using the following commands:
