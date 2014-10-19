@@ -1,6 +1,6 @@
 {
-    "name": "faggot-io-core",
-    "url": "https://github.com/faggot-io/faggot-io-core",
+    "name": "faggot-io-harvester",
+    "url": "https://github.com/faggot-io/faggot-io-harvester",
     "version": "0.4.3",
     "options": {
         "paths": "./src/",
