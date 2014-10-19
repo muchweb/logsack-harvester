@@ -3,7 +3,9 @@ faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.s
 
 ## Installation
 
-    git install --save https://github.com/faggot-io/faggot-io-harvester.git
+```bash
+npm install --save git+https://github.com/faggot-io/faggot-io-harvester.git
+```
 
 ## Usage:
 
