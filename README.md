@@ -1,5 +1,4 @@
-faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.svg)](https://travis-ci.org/faggot-io/faggot-io-core) [![NPM version](https://badge.fury.io/js/faggot-io-core.svg)](http://badge.fury.io/js/faggot-io-core) ![License: GPLv3+](http://img.shields.io/badge/license-GPLv3%2B-brightgreen.svg)
-=================================================
+Logsack Harvester [![Build Status](https://travis-ci.org/muchweb/logsack-harvester.svg)](https://travis-ci.org/muchweb/logsack-harvester) [![NPM version](https://badge.fury.io/js/logsack-harvester.svg)](http://badge.fury.io/js/logsack-harvester) ![License: GPLv3+](http://img.shields.io/badge/license-GPLv3%2B-brightgreen.svg)
 
 ## Installation
 
