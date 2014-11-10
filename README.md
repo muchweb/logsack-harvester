@@ -1,5 +1,9 @@
 Logsack Harvester [![Build Status](https://travis-ci.org/muchweb/logsack-harvester.svg)](https://travis-ci.org/muchweb/logsack-harvester) [![NPM version](https://badge.fury.io/js/logsack-harvester.svg)](http://badge.fury.io/js/logsack-harvester) ![License: GPLv3+](http://img.shields.io/badge/license-GPLv3%2B-brightgreen.svg)
 
+## :info: Achtung
+
+> :warning: This version is under heavy development. If you are looking for  dramatically improved Log.io, please install it from this commit: [a2212d3ed36b7751c24469fbe3c6685bafb440a2](https://github.com/muchweb/logsack-harvester/tree/a2212d3ed36b7751c24469fbe3c6685bafb440a2) :wink:
+
 ## Installation
 
 ```bash

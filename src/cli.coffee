@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 ###*
 	@module Logsack
 	@author muchweb
@@ -7,7 +6,7 @@
 'use strict'
 
 program = require 'commander'
-{Harvester} = require './logsack.js'
+{Harvester} = require './harvester.js'
 package_json = require '../package.json'
 
 program
@@ -21,21 +20,24 @@ program
 	.version package_json.version
 	.parse process.argv
 
-logsack = new Harvester
+# Display help if no options passed
+# program.help() if process.argv.length is 2
+
+harvester = new Harvester
 
 if program.outStream?
 	process.stdout.setEncoding 'utf8'
-	logsack.AddOutputStream process.stdout
+	harvester.AddOutputStream process.stdout
 
 if program.outFile?
-	logsack.AddOutputFile program.outFile
+	harvester.AddOutputFile program.outFile
 
 if program.outPort?
-	logsack.AddOutputServer program.outPort
+	harvester.AddOutputServer program.outPort
 
 if program.inStream?
 	process.stdin.setEncoding 'utf8'
-	logsack.AddInputStream process.stdin
+	harvester.AddInputStream process.stdin
 
 if program.inPort?
-	logsack.AddInputServer program.inPort
+	harvester.AddInputServer program.inPort

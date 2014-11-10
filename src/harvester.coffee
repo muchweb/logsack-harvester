@@ -91,9 +91,9 @@ module.exports.Harvester = class extends stream.Duplex
 			@pipe client
 
 	_write: (chunk, a, b) ->
-		string = chunk.toString('utf8')
+		string = chunk.toString 'utf8'
 		@current_data += string
-		lines = @current_data.split('\n')
+		lines = @current_data.split '\n'
 		@processLine lines.shift() while lines.length > 1
 		@current_data = lines[0]
 
