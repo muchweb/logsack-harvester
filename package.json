@@ -1,7 +1,7 @@
 {
   "name": "logsack-harvester",
   "description": "Log harvester",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "repository": "https://github.com/muchweb/logsack-harvester",
   "license": "GPL-3.0+",
   "main": "lib/main.js",
