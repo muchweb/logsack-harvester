@@ -91,7 +91,7 @@
 
 - Reworked installation & daemon process using npm & forever
 - Adds custom logging module with log levels
-- Creates official 'faggot-io' npm package
+- Creates official 'log-io' npm package
 
 # 0.2.0 / 2011-09-23
 

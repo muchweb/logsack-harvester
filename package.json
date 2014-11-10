@@ -1,23 +1,27 @@
 {
-  "name": "faggot-io-harvester",
-  "description": "Main log class and data format",
+  "name": "logsack-harvester",
+  "description": "Log harvester",
   "version": "0.4.3",
-  "repository": "https://github.com/faggot-io/faggot-io-harvester",
+  "repository": "https://github.com/muchweb/logsack-harvester",
   "license": "GPL-3.0+",
   "main": "lib/main.js",
   "author": "muchweb <aleks@s-ko.net>",
   "devDependencies": {
     "browserify": "~1.16.6",
     "coffee-script": "^1.8.0",
-    "nodeunit": "^0.9.0",
-    "yuidocjs": "^0.3.50"
+    "nodeunit": "^0.9.0"
+  },
+  "bin": {
+    "logsack": "lib/cli.js"
   },
   "scripts": {
-    "docs": "./node_modules/.bin/yuidoc .",
     "compile": "./node_modules/.bin/coffee --map --compile --output lib src",
     "browserify": "./node_modules/.bin/browserify lib/client.js -o lib/client-browser.js --debug",
     "prepublish": "npm run compile",
     "pretest": "npm run compile",
     "test": "./node_modules/.bin/nodeunit test"
+  },
+  "dependencies": {
+    "commander": "^2.5.0"
   }
 }

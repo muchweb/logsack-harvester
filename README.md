@@ -4,13 +4,13 @@ faggot-io-core [![Build Status](https://travis-ci.org/faggot-io/faggot-io-core.s
 ## Installation
 
 ```bash
-npm install --save git+https://github.com/faggot-io/faggot-io-harvester.git
+npm install -g logsack-harvester
 ```
 
 ## Usage:
 
 ```bash
-  ls | faggot
+  ls | logsack
 ```
 
 Possible inputs:
@@ -26,10 +26,10 @@ Possible output:
 ## Example
 
 1. Run input server
-    `faggot --in-port 3000 --out-stream`
+    `logsack --in-port 3000 --out-stream`
 
 2. Run output server
-    `echo "test" | faggot --in-stream --out-port localhost:3000`
+    `echo "test" | logsack --in-stream --out-port localhost:3000`
 
 ## Credits
 
